@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import EventsCarousel from '../components/EventsCarousel';
 import QuickAccessCards from '../components/QuickAccessCards';
-// import Footer from '../components/Footer'; ← when ready
+import Footer from '../components/Footer';
 
 const Homepage = () => {
   return (
@@ -12,7 +12,7 @@ const Homepage = () => {
       <HeroSection />
       <EventsCarousel />
       <QuickAccessCards />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };
