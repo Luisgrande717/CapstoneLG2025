@@ -1,0 +1,38 @@
+.hero {
+  background-image: url('/assets/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 20px;
+  color: white;
+  position: relative;
+  text-align: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.verse {
+  font-style: italic;
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.hero-buttons button {
+  margin: 10px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: #f0c987;
+  color: #333;
+  cursor: pointer;
+}
+
+.hero-buttons button:hover {
+  background-color: #e0b36d;
+}
