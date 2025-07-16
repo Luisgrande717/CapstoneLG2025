@@ -2,7 +2,7 @@
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import EventsCarousel from '../components/EventsCarousel';
-// import QuickAccessCards from '../components/QuickAccessCards'; ← once you build this
+import QuickAccessCards from '../components/QuickAccessCards';
 // import Footer from '../components/Footer'; ← when ready
 
 const Homepage = () => {
@@ -11,7 +11,7 @@ const Homepage = () => {
       <Navbar />
       <HeroSection />
       <EventsCarousel />
-      {/* <QuickAccessCards /> */}
+      <QuickAccessCards />
       {/* <Footer /> */}
     </>
   );
