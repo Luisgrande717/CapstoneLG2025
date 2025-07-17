@@ -1,28 +1,30 @@
 // frontend/src/components/Navbar.jsx
 import './Navbar.css';
-import ChurchLogo from '../assets/church-logo2.png';
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; // ← future-proof for routing
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <header className="navbar">
-      <div className="navbar-logo">
-        <img src={ChurchLogo} alt="Church Logo" />
-        <h1>Our Lady of Fatima</h1>
+    <nav className="navbar">
+      <div className="logo">
+        <img src="/assets/church-logo2.png" alt="Parish Logo" />
+        Our Lady of Fatima
       </div>
-
-      <nav className="navbar-links">
-        <a href="#">Home</a>
-        <a href="#">Mass Times</a>
-        <a href="#">Ministries</a>
-        <a href="#">Events</a>
-        <a href="#">Contact</a>
-      </nav>
-
-      <div className="navbar-toggle">
-        {/* Future feature: Theme toggle or login */}
-        <button>☀️</button>
-      </div>
-    </header>
+      <button className={`hamburger ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/mass">Mass Times</Link></li>
+        <li><Link to="/events">Events</Link></li>
+        <li><Link to="/donate">Donate</Link></li>
+        <li><Link to="/login" className="login-link">Member Login</Link></li>
+      </ul>
+    </nav>
   );
 };
 
