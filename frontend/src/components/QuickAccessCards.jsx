@@ -1,32 +1,37 @@
 // frontend/src/components/QuickAccessCards.jsx
 import './QuickAccessCards.css';
+import SacramentsIcon from '../assets/sacraments-icon.png';
+import VolunteerIcon from '../assets/volunteer-icon.png';
+import DailyReadingsIcon from '../assets/dailyreading-icon.png';
+import DonateIcon from '../assets/donate-icon.png';
 
 const cards = [
   {
     title: 'Sacraments',
     description: 'Learn about Baptism, Communion, and Confirmation.',
-    icon: '/assets/sacrament-icon.png',
+    icon: SacramentsIcon,
     link: '#'
   },
   {
     title: 'Volunteer',
     description: 'Get involved and make a difference.',
-    icon: '/assets/volunteer-icon.png',
+    icon: VolunteerIcon,
     link: '#'
   },
   {
     title: 'Daily Readings',
     description: 'Reflect on today’s scripture.',
-    icon: '/assets/readings-icon.png',
+    icon: DailyReadingsIcon,
     link: '#'
   },
   {
     title: 'Donate',
     description: 'Support our parish’s mission.',
-    icon: '/assets/donate-icon.png',
+    icon: DonateIcon,
     link: '#'
   }
 ];
+
 
 const QuickAccessCards = () => {
   return (

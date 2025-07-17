@@ -1,12 +1,13 @@
 // frontend/src/components/Navbar.jsx
 import './Navbar.css';
+import ChurchLogo from '../assets/church-logo2.png';
 
 const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar-logo">
-        <img src="/assets/church-logo.png" alt="Church Logo" />
-        <h1>St. Martin de Porres</h1>
+        <img src={ChurchLogo} alt="Church Logo" />
+        <h1>Our Lady of Fatima</h1>
       </div>
 
       <nav className="navbar-links">

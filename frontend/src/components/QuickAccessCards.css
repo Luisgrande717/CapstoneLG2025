@@ -23,3 +23,18 @@
   text-decoration: none;
   color: #333;  /* ✅ fixed */
 }
+
+.access-card img {
+  width: 50px;           /* Adjust icon size */
+  height: auto;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .access-card img {
+    width: 40px;
+  }
+}
