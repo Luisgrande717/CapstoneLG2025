@@ -42,3 +42,28 @@
   border-radius: 6px;
   cursor: not-allowed;
 }
+
+.login-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.login-actions button {
+  background-color: #f0c987;
+  color: #312e2b;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.register-btn {
+  background-color: #d8d3c4;
+}
+
+.register-btn:hover {
+  background-color: #c9c3b3;
+}

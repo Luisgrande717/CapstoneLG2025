@@ -10,7 +10,10 @@ const Login = () => {
         <form>
           <input type="text" placeholder="Email" disabled />
           <input type="password" placeholder="Password" disabled />
-          <button disabled>Login</button>
+          <div className="login-actions">
+            <button disabled>Login</button>
+            <button disabled className="register-btn">Register</button>
+          </div>
         </form>
       </div>
     </section>
