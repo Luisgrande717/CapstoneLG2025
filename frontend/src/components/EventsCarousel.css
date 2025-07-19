@@ -10,6 +10,7 @@
   color: #312e2b;
 }
 
+/* ✅ Center carousel container */
 .carousel-container {
   display: flex;
   gap: 20px;
@@ -17,6 +18,19 @@
   padding-bottom: 10px;
   scroll-snap-type: x mandatory;
   scrollbar-width: thin;
+  scroll-behavior: smooth;
+
+  max-width: 1000px;       /* constrain width */
+  margin-left: auto;       /* center the container */
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Optional: hide scrollbar (WebKit only) */
+.carousel-container::-webkit-scrollbar {
+  display: none;
 }
 
 .event-card {
@@ -28,6 +42,12 @@
   border-radius: 10px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.1);
   scroll-snap-align: start;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover {
+  transform: scale(1.03);
 }
 
 .event-card h3 {
@@ -40,4 +60,16 @@
   font-size: 1rem;
   color: #555;
   margin: 6px 0;
+}
+
+.event-link {
+  text-decoration: none;
+  color: inherit;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+/* Optionally animate on hover */
+.event-link:hover .event-card {
+  transform: scale(1.02);
 }
