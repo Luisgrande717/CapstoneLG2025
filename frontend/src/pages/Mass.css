@@ -16,13 +16,55 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Header */
 .mass-card h2 {
   font-size: 2.2rem;
   margin-bottom: 20px;
   color: #312e2b;
 }
 
+/* Paragraph text (if used outside of sections) */
 .mass-card p {
   font-size: 1.2rem;
   color: #666666;
+}
+
+/* Section containers */
+.mass-section {
+  margin-top: 30px;
+}
+
+/* Subsection headings */
+.mass-section h3 {
+  font-size: 1.6rem;
+  color: #312e2b;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Text and list styling */
+.mass-section p,
+.mass-section ul {
+  font-size: 1.2rem;
+  color: #444;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* List tweaks */
+.mass-section ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mass-section li {
+  margin-bottom: 6px;
+}
+
+.mass-image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
