@@ -11,7 +11,6 @@ const Homepage = () => {
       <HeroSection />
       <EventsCarousel />
       <QuickAccessCards />
-      <Footer />
     </>
   );
 };
