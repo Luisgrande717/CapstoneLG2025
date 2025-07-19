@@ -1,4 +1,5 @@
 // frontend/src/components/HeroSection.jsx
+import { Link } from 'react-router-dom';
 import './HeroSection.css';
 
 const HeroSection = () => {
@@ -8,9 +9,9 @@ const HeroSection = () => {
         <h1>Welcome to Our Lady of Fatima Parish</h1>
         <p className="verse">"Many Cultures, One Faith"</p>
         <div className="hero-buttons">
-          <button>Mass Times</button>
-          <button>Events</button>
-          <button>Donate</button>
+          <Link to="/mass"><button>Mass Times</button></Link>
+          <Link to="/events"><button>Events</button></Link>
+          <Link to="/donate"><button>Donate</button></Link>
         </div>
       </div>
     </section>
