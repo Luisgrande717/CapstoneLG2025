@@ -2,19 +2,21 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import { LanguageProvider } from './context/LanguageContext';
+
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Mass from './pages/Mass';
 import Events from './pages/Events';
 import Donate from './pages/Donate';
 import Sacraments from './pages/Sacraments';
-import Volunteer from './pages/Volunteer'; // scaffold this if not built yet
-import Readings from './pages/Readings';   // scaffold this if not built yet
+import Volunteer from './pages/Volunteer';
+import Readings from './pages/Readings';
 
 import Navbar from './components/Navbar';
-import Footer from './components/Footer'; // optional shared component
+import Footer from './components/Footer';
 
-function App() {
+function AppRoutes() {
   return (
     <Router>
       <Navbar />
@@ -33,4 +35,10 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppRoutes />
+    </LanguageProvider>
+  );
+}

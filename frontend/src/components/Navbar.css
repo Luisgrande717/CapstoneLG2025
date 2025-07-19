@@ -133,3 +133,19 @@
     width: 32px;
   }
 }
+
+.lang-toggle {
+  background-color: #f0c987;
+  color: #312e2b;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 12px;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.lang-toggle:hover {
+  background-color: #e0b36d;
+}
