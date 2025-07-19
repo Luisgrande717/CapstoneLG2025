@@ -1,0 +1,42 @@
+.readings-page {
+  min-height: 100vh;
+  padding: 80px 20px;
+  background-color: #f5f4ef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.readings-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 900px;
+  text-align: left;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.readings-card h2 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  color: #312e2b;
+  text-align: center;
+}
+
+.readings-card p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.reading-section h3 {
+  font-size: 1.6rem;
+  color: #312e2b;
+  margin-bottom: 10px;
+}
+
+.reading-section p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 20px;
+}

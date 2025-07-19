@@ -1,5 +1,7 @@
 // frontend/src/components/QuickAccessCards.jsx
 import './QuickAccessCards.css';
+import { Link } from 'react-router-dom';
+
 import SacramentsIcon from '../assets/sacraments-icon.png';
 import VolunteerIcon from '../assets/volunteer-icon.png';
 import DailyReadingsIcon from '../assets/dailyreading-icon.png';
@@ -10,28 +12,27 @@ const cards = [
     title: 'Sacraments',
     description: 'Learn about Baptism, Communion, and Confirmation.',
     icon: SacramentsIcon,
-    link: '#'
+    link: '/sacraments'
   },
   {
     title: 'Volunteer',
     description: 'Get involved and make a difference.',
     icon: VolunteerIcon,
-    link: '#'
+    link: '/volunteer'
   },
   {
     title: 'Daily Readings',
     description: 'Reflect on today’s scripture.',
     icon: DailyReadingsIcon,
-    link: '#'
+    link: '/readings'
   },
   {
     title: 'Donate',
     description: 'Support our parish’s mission.',
     icon: DonateIcon,
-    link: '#'
+    link: '/donate'
   }
 ];
-
 
 const QuickAccessCards = () => {
   return (
@@ -39,11 +40,11 @@ const QuickAccessCards = () => {
       <h2>Quick Access</h2>
       <div className="card-grid">
         {cards.map((card, idx) => (
-          <a key={idx} href={card.link} className="access-card">
+          <Link key={idx} to={card.link} className="access-card">
             <img src={card.icon} alt={card.title} />
             <h3>{card.title}</h3>
             <p>{card.description}</p>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

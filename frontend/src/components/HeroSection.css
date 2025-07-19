@@ -1,5 +1,5 @@
 .hero {
-  background-image: url('/assets/hero-head1.jpg');
+  background-image: url('/assets/hero-head1.jpg'); /* Replace with actual path */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -35,20 +35,31 @@
   font-style: italic;
   font-size: clamp(1rem, 3vw, 1.6rem);
   margin-top: 10px;
+  color: #e0e0e0;
 }
 
 .hero-buttons {
-  margin-top: 20px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
+/* Remove underline from Link wrapping buttons */
+.hero-buttons a {
+  text-decoration: none;
+}
+
+/* Style actual buttons */
 .hero-buttons button {
-  margin: 10px;
   padding: 12px 20px;
   font-size: 1rem;
   border: none;
   border-radius: 25px;
   background-color: #f0c987;
-  color: #333;
+  color: #312e2b;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -79,11 +90,5 @@
   .hero-buttons button {
     padding: 10px 16px;
     font-size: 0.9rem;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .hero {
-    background-position: top center;
   }
 }

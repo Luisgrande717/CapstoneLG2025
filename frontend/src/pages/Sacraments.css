@@ -1,0 +1,42 @@
+.sacraments-page {
+  min-height: 100vh;
+  padding: 80px 20px;
+  background-color: #fbf9f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sacrament-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 900px;
+  text-align: left;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.sacrament-card h2 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  color: #312e2b;
+  text-align: center;
+}
+
+.sacrament-card p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.sacrament-section h3 {
+  font-size: 1.6rem;
+  color: #312e2b;
+  margin-bottom: 10px;
+}
+
+.sacrament-section p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #444;
+}
