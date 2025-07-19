@@ -1,10 +1,20 @@
 .mass-page {
   min-height: 100vh;
-  padding: 80px 20px;
+  padding: 60px 20px;
   background-color: #f4f2ec;
+}
+
+.mass-carousel {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.carousel-slide {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .mass-card {
@@ -12,37 +22,28 @@
   padding: 40px;
   border-radius: 10px;
   max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
   text-align: center;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Header */
 .mass-card h2 {
   font-size: 2.2rem;
   margin-bottom: 20px;
   color: #312e2b;
 }
 
-/* Paragraph text (if used outside of sections) */
-.mass-card p {
-  font-size: 1.2rem;
-  color: #666666;
-}
-
-/* Section containers */
 .mass-section {
   margin-top: 30px;
 }
 
-/* Subsection headings */
 .mass-section h3 {
   font-size: 1.6rem;
   color: #312e2b;
   margin-bottom: 10px;
-  text-align: center;
 }
 
-/* Text and list styling */
 .mass-section p,
 .mass-section ul {
   font-size: 1.2rem;
@@ -51,7 +52,6 @@
   margin-top: 8px;
 }
 
-/* List tweaks */
 .mass-section ul {
   list-style: none;
   padding-left: 0;
@@ -64,7 +64,7 @@
 .mass-image {
   max-width: 100%;
   height: auto;
-  margin-top: 40px;
+  margin-top: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
