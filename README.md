@@ -1,12 +1,51 @@
-# React + Vite
+# Our Lady of Fatima Parish Website (MERN Stack)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Purpose
 
-Currently, two official plugins are available:
+This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. The site shares mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project centers around creating a modular, user-friendly frontend with React while laying the foundation for full-stack capabilities in the MERN environment.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack Overview (MERN)
+
+| Technology    | Status      | Role                                           |
+|---------------|-------------|------------------------------------------------|
+| **MongoDB**   | Planned     | Will store dynamic events, parish updates, and user data |
+| **Express.js**| Planned     | Will power backend API routes and serve data   |
+| **React.js**  | In Progress | Manages frontend components, state, and routing |
+| **Node.js**   | Planned     | Backend runtime for hosting APIs and server logic |
+
+---
+
+## 🚧 Current Progress
+
+✅ Built core pages with modular React components  
+✅ Implemented bilingual toggle using React Context  
+✅ Responsive navigation with animated mobile hamburger menu  
+✅ Integrated react-router-dom for multi-page routing  
+✅ Created event carousel and calendar using `react-calendar`  
+✅ Event details dynamically update based on selected date  
+✅ Organized styles using scoped CSS and inline layout logic  
+
+---
+
+## 📦 Coming Soon
+
+🚀 **Donation and e-store integration** (Stripe, PayPal, or Donorbox)  
+🧾 **Admin panel** for event and content management  
+📬 **Contact + prayer request forms**  
+🌐 **Persistent language support across sessions**  
+🔐 **User accounts and member login system**  
+📂 **Backend connection with live MongoDB data**
+
+---
+
+## 💡 Vision
+
+To deliver a welcoming digital home where parishioners and visitors can find worship times, events, and opportunities to connect—all in a format that’s intuitive, inclusive, and spiritually resonant.
+
+Every feature is designed to reflect clarity, compassion, and community.
+
+---
