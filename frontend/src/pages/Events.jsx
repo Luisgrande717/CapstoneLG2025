@@ -3,17 +3,22 @@ import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { mockEvents } from '../data/eventData';
-import './Events.css'; // new custom calendar styles
+import './Events.css'; // optional external styles if needed
 
 const Events = () => {
+  // 🗓️ Store selected calendar date
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  // 📅 Store list of events for that date
   const [eventsForDate, setEventsForDate] = useState([]);
 
+  // 🔄 When selected date changes, check if events exist and update state
   useEffect(() => {
     const key = selectedDate.toISOString().split('T')[0];
     setEventsForDate(mockEvents[key] || []);
   }, [selectedDate]);
 
+  // 🎯 Highlight calendar tiles with a dot if events exist for that day
   const getTileContent = ({ date, view }) => {
     if (view === 'month') {
       const key = date.toISOString().split('T')[0];
@@ -28,17 +33,20 @@ const Events = () => {
     <section style={styles.container}>
       <h2 style={styles.title}>Events Calendar</h2>
 
+      {/* 📆 Centered calendar display with dots */}
       <div style={styles.calendarWrapper}>
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
-          tileContent={getTileContent} // ✅ adds dots to event days
+          tileContent={getTileContent}
           className="custom-calendar"
         />
       </div>
 
+      {/* 📋 Detailed event list below the calendar */}
       <div style={styles.detailsSection}>
         <h3 style={styles.subtitle}>Events on {selectedDate.toDateString()}</h3>
+
         {eventsForDate.length > 0 ? (
           eventsForDate.map((event, index) => (
             <div key={index} style={styles.eventCard}>
@@ -56,11 +64,15 @@ const Events = () => {
   );
 };
 
+// 🎨 Inline styles with layout fixes and comments
 const styles = {
   container: {
     minHeight: '100vh',
     padding: '80px 20px',
     backgroundColor: '#f4f2ec',
+    display: 'flex',               // ⬅️ Enable flex layout
+    flexDirection: 'column',
+    alignItems: 'center',          // ⬅️ Center everything horizontally
     textAlign: 'center'
   },
   title: {
@@ -69,12 +81,15 @@ const styles = {
     color: '#312e2b'
   },
   calendarWrapper: {
-    maxWidth: '420px',
-    margin: '0 auto',
-    marginBottom: '40px'
+    display: 'flex',               // ⬅️ Center calendar
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '40px',
+    width: '100%'                  // ⬅️ Prevent shrinking inside flex
   },
   detailsSection: {
     maxWidth: '700px',
+    width: '100%',
     margin: '0 auto',
     textAlign: 'left'
   },
