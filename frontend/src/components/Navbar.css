@@ -1,4 +1,4 @@
-/* Core Layout */
+/* 🧱 Core Layout */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,7 @@
   color: white;
 }
 
-/* Logo Container */
+/* ✨ Logo Container */
 .logo {
   display: flex;
   align-items: center;
@@ -21,7 +21,6 @@
   color: #f0c987;
 }
 
-/* Circular Image Style */
 .logo img {
   height: 40px;
   width: 40px;
@@ -31,14 +30,17 @@
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Nav Links */
+/* 📎 Nav Links List */
 .nav-links {
   display: flex;
+  align-items: center;           /* ✅ ensures vertical alignment across all items */
   gap: 20px;
   list-style: none;
   transition: all 0.3s ease;
+  flex-wrap: wrap;               /* ✅ allows wrapping if container is tight */
 }
 
+/* 🔗 Each Nav Link */
 .nav-links a {
   text-decoration: none;
   color: white;
@@ -46,13 +48,16 @@
   padding: 8px;
   border-radius: 6px;
   transition: background-color 0.3s ease;
+
+  white-space: nowrap;          /* ✅ prevents wrapping of link text */
+  display: inline-block;        /* ✅ keeps spacing consistent */
 }
 
 .nav-links a:hover {
   background-color: #484441;
 }
 
-/* Member Login Style */
+/* 🔐 Member Login Button */
 .nav-links a:last-child,
 .login-link {
   background-color: #f0c987;
@@ -61,6 +66,9 @@
   border-radius: 6px;
   padding: 8px 12px;
   transition: background-color 0.3s ease;
+
+  white-space: nowrap;          /* ✅ keeps label on one line */
+  display: inline-block;
 }
 
 .nav-links a:last-child:hover,
@@ -68,7 +76,32 @@
   background-color: #e0b36d;
 }
 
-/* Hamburger Menu Button */
+/* 🌐 Language Toggle Wrapper (new) */
+.lang-item {
+  display: flex;
+  align-items: center;           /* ✅ aligns the button with nav links */
+}
+
+/* 🌐 Language Toggle Button */
+.lang-toggle {
+  background-color: #f0c987;
+  color: #312e2b;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 12px;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  white-space: nowrap;          /* ✅ keeps button label on one line */
+}
+
+.lang-toggle:hover {
+  background-color: #e0b36d;
+}
+
+/* 🍔 Hamburger Menu (mobile only) */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -79,7 +112,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 11; /* stay above collapsed nav */
+  z-index: 11;
 }
 
 .hamburger span {
@@ -91,7 +124,7 @@
   transition: all 0.3s ease;
 }
 
-/* Hamburger Animation */
+/* 🍔 Hamburger Menu Animation */
 .hamburger.active span:nth-child(1) {
   transform: translateY(7.5px) rotate(45deg);
 }
@@ -102,7 +135,7 @@
   transform: translateY(-7.5px) rotate(-45deg);
 }
 
-/* Responsive Navigation */
+/* 📱 Responsive Navigation (mobile view) */
 @media screen and (max-width: 768px) {
   .nav-links {
     flex-direction: column;
@@ -113,7 +146,8 @@
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    display: none; /* hidden by default */
+    display: none;
+    align-items: flex-start;     /* ✅ stack links top-to-bottom when open */
   }
 
   .nav-links.open {
@@ -132,20 +166,4 @@
     height: 32px;
     width: 32px;
   }
-}
-
-.lang-toggle {
-  background-color: #f0c987;
-  color: #312e2b;
-  font-weight: 600;
-  border-radius: 6px;
-  padding: 8px 12px;
-  border: none;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.lang-toggle:hover {
-  background-color: #e0b36d;
 }
