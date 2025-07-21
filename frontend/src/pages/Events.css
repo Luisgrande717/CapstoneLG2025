@@ -1,0 +1,35 @@
+/* Highlight event dates with a dot */
+.event-dot {
+  display: block;
+  margin: auto;
+  margin-top: 4px;
+  width: 6px;
+  height: 6px;
+  background-color: #f0c987;
+  border-radius: 50%;
+}
+
+/* Custom calendar styles */
+.custom-calendar {
+  border: none;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fffef8;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.react-calendar__tile {
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f0e7cf;
+}
+
+.react-calendar__tile--active {
+  background-color: #f0c987;
+  color: #312e2b;
+}

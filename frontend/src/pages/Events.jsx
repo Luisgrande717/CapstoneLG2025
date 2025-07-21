@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { mockEvents } from '../data/eventData';
+import './Events.css'; // new custom calendar styles
 
 const Events = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -13,19 +14,29 @@ const Events = () => {
     setEventsForDate(mockEvents[key] || []);
   }, [selectedDate]);
 
+  const getTileContent = ({ date, view }) => {
+    if (view === 'month') {
+      const key = date.toISOString().split('T')[0];
+      if (mockEvents[key]) {
+        return <span className="event-dot" />;
+      }
+    }
+    return null;
+  };
+
   return (
     <section style={styles.container}>
       <h2 style={styles.title}>Events Calendar</h2>
 
-      {/* ✅ Interactive Calendar */}
       <div style={styles.calendarWrapper}>
         <Calendar
           onChange={setSelectedDate}
           value={selectedDate}
+          tileContent={getTileContent} // ✅ adds dots to event days
+          className="custom-calendar"
         />
       </div>
 
-      {/* ✅ Event Details Below Calendar */}
       <div style={styles.detailsSection}>
         <h3 style={styles.subtitle}>Events on {selectedDate.toDateString()}</h3>
         {eventsForDate.length > 0 ? (
@@ -58,7 +69,7 @@ const styles = {
     color: '#312e2b'
   },
   calendarWrapper: {
-    maxWidth: '400px',
+    maxWidth: '420px',
     margin: '0 auto',
     marginBottom: '40px'
   },
