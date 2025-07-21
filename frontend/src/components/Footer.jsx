@@ -1,7 +1,7 @@
 // frontend/src/components/Footer.jsx
 import './Footer.css';
 import facebookIcon from '../assets/facebook-icon.png';
-import instagramIcon from '../assets/instagram-icon.png';
+//import instagramIcon from '../assets/instagram-icon.png';
 import youtubeIcon from '../assets/youtube-icon.png';
 import tiktokIcon from '../assets/tiktok-icon.png';
 
