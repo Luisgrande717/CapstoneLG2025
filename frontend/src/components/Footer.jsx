@@ -52,7 +52,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; 2025 St. Martin de Porres Parish. All rights reserved.</p>
+        <p>&copy; 2025 Our Lady of Fatima. All rights reserved.</p>
       </div>
     </footer>
   );
