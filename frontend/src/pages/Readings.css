@@ -1,42 +1,33 @@
 .readings-page {
-  min-height: 100vh;
-  padding: 80px 20px;
-  background-color: #f5f4ef;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.readings-card {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 10px;
-  max-width: 900px;
-  text-align: left;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-}
-
-.readings-card h2 {
-  font-size: 2.4rem;
-  margin-bottom: 20px;
-  color: #312e2b;
+  padding: 60px 20px;
+  background-color: #fffef8;
   text-align: center;
 }
 
-.readings-card p {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 25px;
+.readings-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.reading-section h3 {
-  font-size: 1.6rem;
+.reading-section {
+  margin-top: 30px;
+}
+
+.read-more-button {
+  background-color: #f0c987;
+  border: none;
   color: #312e2b;
-  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.reading-section p {
-  font-size: 1.1rem;
-  color: #444;
-  margin-bottom: 20px;
+.read-more-button:hover {
+  background-color: #e0b36d;
 }
