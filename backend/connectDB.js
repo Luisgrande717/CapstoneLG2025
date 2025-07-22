@@ -1,0 +1,1 @@
+console.log('[Mongo URI]', process.env.MONGODB_URI); // 💡 Should show full connection string
