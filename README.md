@@ -1,51 +1,46 @@
-# Our Lady of Fatima Parish Website (MERN Stack)
+Our Lady of Fatima Parish Website (MERN Stack)
+📌 Purpose
+This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. It features mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
+The site uses a modular React frontend and is evolving into a full MERN-stack application with spiritual content automation, admin tools, and community impact at its core.
 
-## 📌 Purpose
+🛠️ Tech Stack Overview (MERN)
+| Technology | Status | Role | 
+| MongoDB | Planned | Will store dynamic events, parish updates, and user data | 
+| Express.js | In Progress | Powers backend API routes, including dynamic reading scraping | 
+| React.js | In Progress | Manages frontend components, bilingual UI, and page routing | 
+| Node.js | In Progress | Backend runtime, API orchestration, and server configuration | 
 
-This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. The site shares mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
 
-The project centers around creating a modular, user-friendly frontend with React while laying the foundation for full-stack capabilities in the MERN environment.
 
----
+🚧 Current Progress
+✅ Built core pages with modular React components
+✅ Bilingual toggle using React Context (English/Spanish)
+✅ Responsive navigation with animated mobile hamburger menu
+✅ Multi-page routing with react-router-dom
+✅ Event calendar using react-calendar
+✅ Dynamic event details based on selected date
+✅ Scoped CSS styling with responsive layout
+✅ Backend scraping route: /api/readings/today pulls daily Gospel excerpt using Cheerio
+✅ CORS enabled for frontend/backend cross-origin development
+✅ React frontend displays scripture excerpt with fallback and loading states
+✅ Styled Daily Reading card with parchment-inspired theme and “Read More” button
 
-## 🛠️ Tech Stack Overview (MERN)
+🔧 Backend Highlights
+- Express route /api/readings/today uses Axios & Cheerio to scrape USCCB’s daily Gospel
+- Robust fallback handling for reading availability
+- Preview and excerpt formatting for frontend rendering
+- CORS configuration allowing React dev server access (http://localhost:5173)
+- Modular routing structure (readings.js) exported for clean API integration
 
-| Technology    | Status      | Role                                           |
-|---------------|-------------|------------------------------------------------|
-| **MongoDB**   | Planned     | Will store dynamic events, parish updates, and user data |
-| **Express.js**| Planned     | Will power backend API routes and serve data   |
-| **React.js**  | In Progress | Manages frontend components, state, and routing |
-| **Node.js**   | Planned     | Backend runtime for hosting APIs and server logic |
+📦 Coming Soon
+🚀 Donation and e-store integration (Stripe, PayPal, Donorbox)
+📬 Contact + prayer request forms
+📂 Saint of the Day module with dynamic content
+🧾 Admin panel for event/content management
+🌐 Persistent bilingual support across sessions
+🔐 User accounts and member login system
+🧠 Advanced scraping logic for Responsorial Psalms and Gospel segments
+📡 Backend connection to live MongoDB data
 
----
-
-## 🚧 Current Progress
-
-✅ Built core pages with modular React components  
-✅ Implemented bilingual toggle using React Context  
-✅ Responsive navigation with animated mobile hamburger menu  
-✅ Integrated react-router-dom for multi-page routing  
-✅ Created event carousel and calendar using `react-calendar`  
-✅ Event details dynamically update based on selected date  
-✅ Organized styles using scoped CSS and inline layout logic  
-
----
-
-## 📦 Coming Soon
-
-🚀 **Donation and e-store integration** (Stripe, PayPal, or Donorbox)  
-🧾 **Admin panel** for event and content management  
-📬 **Contact + prayer request forms**  
-🌐 **Persistent language support across sessions**  
-🔐 **User accounts and member login system**  
-📂 **Backend connection with live MongoDB data**
-
----
-
-## 💡 Vision
-
-To deliver a welcoming digital home where parishioners and visitors can find worship times, events, and opportunities to connect—all in a format that’s intuitive, inclusive, and spiritually resonant.
-
-Every feature is designed to reflect clarity, compassion, and community.
-
----
+💡 Vision
+To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.
