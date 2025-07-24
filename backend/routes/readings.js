@@ -8,16 +8,16 @@ const router = express.Router();
 // Define a GET route for /api/readings/today
 router.get('/today', async (req, res) => {
   try {
-    // ⛓️ Request the USCCB daily reading HTML page
+    //  Request the USCCB daily reading HTML page
     const { data } = await axios.get('https://bible.usccb.org/daily-bible-reading');
 
-    // 🧼 Load HTML into Cheerio for parsing
+    //  Load HTML into Cheerio for parsing
     const $ = cheerio.load(data); // ✅ $ gets defined here
 
-    // 📖 Select the correct paragraph (based on your successful test)
+    //  Select the correct paragraph (based on your successful test)
     const excerptParagraph = $('p').eq(2).text().trim();
 
-    // ✅ Confirm data is valid (not empty or fallback)
+    //  Confirm data is valid (not empty or fallback)
     const isValid = excerptParagraph && excerptParagraph.length > 50;
 
     if (isValid) {
@@ -32,7 +32,7 @@ router.get('/today', async (req, res) => {
         link: "https://bible.usccb.org/daily-bible-reading"
       });
     } else {
-      // 🛑 Graceful fallback if no valid paragraph is found
+      //   fallback if no valid paragraph is found
       res.status(200).json({
         date: new Date().toDateString(),
         title: "Today's Gospel",
@@ -44,7 +44,7 @@ router.get('/today', async (req, res) => {
   } catch (err) {
     console.error('[USCCB Scraper Error]', err.message);
 
-    // ⚠️ Network or parsing error fallback
+    //  Network or parsing error fallback
     res.status(500).json({
       date: new Date().toDateString(),
       title: "Today's Gospel",
@@ -55,5 +55,5 @@ router.get('/today', async (req, res) => {
   }
 });
 
-// 🚀 Export router properly (to resolve your ES Module import issue)
+//  Export router properly (to resolve your ES Module import issue)
 export default router;
