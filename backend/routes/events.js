@@ -4,7 +4,7 @@ import Event from '../models/Event.js';
 
 const router = express.Router();
 
-// 📝 POST: Create new event
+//  POST: Create new event
 router.post('/', async (req, res) => {
   try {
     const newEvent = new Event(req.body);

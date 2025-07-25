@@ -1,9 +1,9 @@
 Our Lady of Fatima Parish Website (MERN Stack)
-📌 Purpose
+ Purpose
 This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. It features mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
 The site uses a modular React frontend and is evolving into a full MERN-stack application with spiritual content automation, admin tools, and community impact at its core.
 
-🛠️ Tech Stack Overview (MERN)
+ Tech Stack Overview (MERN)
 | Technology | Status | Role | 
 | MongoDB | Planned | Will store dynamic events, parish updates, and user data | 
 | Express.js | In Progress | Powers backend API routes, including dynamic reading scraping | 
@@ -12,7 +12,7 @@ The site uses a modular React frontend and is evolving into a full MERN-stack ap
 
 
 
-🚧 Current Progress
+ Current Progress
 ✅ Built core pages with modular React components
 ✅ Bilingual toggle using React Context (English/Spanish)
 ✅ Responsive navigation with animated mobile hamburger menu
@@ -25,22 +25,22 @@ The site uses a modular React frontend and is evolving into a full MERN-stack ap
 ✅ React frontend displays scripture excerpt with fallback and loading states
 ✅ Styled Daily Reading card with parchment-inspired theme and “Read More” button
 
-🔧 Backend Highlights
+ Backend Highlights
 - Express route /api/readings/today uses Axios & Cheerio to scrape USCCB’s daily Gospel
 - Robust fallback handling for reading availability
 - Preview and excerpt formatting for frontend rendering
 - CORS configuration allowing React dev server access (http://localhost:5173)
 - Modular routing structure (readings.js) exported for clean API integration
 
-📦 Coming Soon
-🚀 Donation and e-store integration (Stripe, PayPal, Donorbox)
-📬 Contact + prayer request forms
-📂 Saint of the Day module with dynamic content
-🧾 Admin panel for event/content management
-🌐 Persistent bilingual support across sessions
-🔐 User accounts and member login system
-🧠 Advanced scraping logic for Responsorial Psalms and Gospel segments
-📡 Backend connection to live MongoDB data
+ Coming Soon
+ Donation and e-store integration (Stripe, PayPal, Donorbox)
+ Contact + prayer request forms
+ Saint of the Day module with dynamic content
+ Admin panel for event/content management
+ Persistent bilingual support across sessions
+ User accounts and member login system
+ Advanced scraping logic for Responsorial Psalms and Gospel segments
+ Backend connection to live MongoDB data
 
-💡 Vision
+Vision
 To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.

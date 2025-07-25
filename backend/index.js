@@ -1,4 +1,4 @@
-// 📦 Import wiring for backend
+//  Import wiring for backend
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'; //  Add CORS middleware
@@ -22,10 +22,10 @@ app.use(cors({
   credentials: true
 }));
 
-// 🔧 Optional: Allow any origin (for testing only—not safe for production)
+//  Optional: Allow any origin (for testing only—not safe for production)
 // app.use(cors()); //  This allows all domains—commented out intentionally
 
-// 🔌 Mount API routes
+//  Mount API routes
 app.use('/api/readings', readingsRoute); // dynamic scripture scraping
 app.use('/api/events', eventsRoute);     // admin event creation & listing
 
