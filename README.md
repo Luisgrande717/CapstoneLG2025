@@ -32,15 +32,15 @@ The site uses a modular React frontend and is evolving into a full MERN-stack ap
 - CORS configuration allowing React dev server access (http://localhost:5173)
 - Modular routing structure (readings.js) exported for clean API integration
 
-📦 Coming Soon
-🚀 Donation and e-store integration (Stripe, PayPal, Donorbox)
-📬 Contact + prayer request forms
-📂 Saint of the Day module with dynamic content
-🧾 Admin panel for event/content management
-🌐 Persistent bilingual support across sessions
-🔐 User accounts and member login system
-🧠 Advanced scraping logic for Responsorial Psalms and Gospel segments
-📡 Backend connection to live MongoDB data
+ Coming Soon
+ Donation and e-store integration (Stripe, PayPal, Donorbox)
+ Contact + prayer request forms
+ Saint of the Day module with dynamic content
+ Admin panel for event/content management
+ Persistent bilingual support across sessions
+ User accounts and member login system
+ Advanced scraping logic for Responsorial Psalms and Gospel segments
+ Backend connection to live MongoDB data
 
 💡 Vision
 To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.
