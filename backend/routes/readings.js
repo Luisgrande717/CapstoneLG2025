@@ -1,7 +1,7 @@
 // Import necessary modules using ES Module syntax
 import express from 'express';
 import axios from 'axios';
-import * as cheerio from 'cheerio'; // ✅ cheerio works great with ESM
+import * as cheerio from 'cheerio'; //  cheerio works great with ESM
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.get('/today', async (req, res) => {
     const { data } = await axios.get('https://bible.usccb.org/daily-bible-reading');
 
     //  Load HTML into Cheerio for parsing
-    const $ = cheerio.load(data); // ✅ $ gets defined here
+    const $ = cheerio.load(data); //  $ gets defined here
 
     //  Select the correct paragraph (based on your successful test)
     const excerptParagraph = $('p').eq(2).text().trim();
