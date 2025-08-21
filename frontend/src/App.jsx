@@ -19,12 +19,14 @@ import './App.css';
 
 // Context Providers
 import { LanguageProvider } from './context/LanguageContext';
+import { AuthProvider } from './context/AuthContext';
 
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoadingSpinner from './components/LoadingSpinner';
 import ErrorFallback from './components/ErrorFallback';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy-loaded pages for better performance
 const Homepage = lazy(() => import('./pages/Homepage'));
@@ -36,44 +38,99 @@ const Sacraments = lazy(() => import('./pages/Sacraments'));
 const Volunteer = lazy(() => import('./pages/Volunteer'));
 const Readings = lazy(() => import('./pages/Readings'));
 
+// Admin components
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+
+/**
+ * Public Layout Component
+ * Standard layout with navbar and footer for public pages
+ */
+function PublicLayout({ children }) {
+  return (
+    <div className="app-layout">
+      <Navbar />
+      <main className="main-content">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+/**
+ * Admin Layout Component  
+ * Clean layout without main navbar for admin pages
+ */
+function AdminLayout({ children }) {
+  return (
+    <div className="app-layout admin-layout">
+      <main className="admin-main-content">
+        {children}
+      </main>
+    </div>
+  );
+}
+
 /**
  * Application routing configuration
- * Implements lazy loading for optimal performance
+ * Implements lazy loading and conditional layouts
  *
  * @returns {JSX.Element} Router component with all application routes
  */
 function AppRoutes() {
   return (
-    <Router>
-      <div className="app-layout">
-        <Navbar />
-        <main className="main-content">
-          <ErrorBoundary
-            FallbackComponent={ErrorFallback}
-            onError={(error, errorInfo) => {
-              console.error('Application Error:', error, errorInfo);
-              // TODO: Send to error reporting service in production
-            }}
-          >
-            <Suspense fallback={<LoadingSpinner />}>
-              <Routes>
-                <Route path="/" element={<Homepage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/mass" element={<Mass />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/donate" element={<Donate />} />
-                <Route path="/sacraments" element={<Sacraments />} />
-                <Route path="/volunteer" element={<Volunteer />} />
-                <Route path="/readings" element={<Readings />} />
-                {/* 404 Route */}
-                <Route path="*" element={<ErrorFallback error={{ message: 'Page not found' }} />} />
-              </Routes>
-            </Suspense>
-          </ErrorBoundary>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onError={(error, errorInfo) => {
+        console.error('Application Error:', error, errorInfo);
+        // TODO: Send to error reporting service in production
+      }}
+    >
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          {/* Public Routes with Standard Layout */}
+          <Route path="/" element={<PublicLayout><Homepage /></PublicLayout>} />
+          <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
+          <Route path="/mass" element={<PublicLayout><Mass /></PublicLayout>} />
+          <Route path="/events" element={<PublicLayout><Events /></PublicLayout>} />
+          <Route path="/donate" element={<PublicLayout><Donate /></PublicLayout>} />
+          <Route path="/sacraments" element={<PublicLayout><Sacraments /></PublicLayout>} />
+          <Route path="/volunteer" element={<PublicLayout><Volunteer /></PublicLayout>} />
+          <Route path="/readings" element={<PublicLayout><Readings /></PublicLayout>} />
+          
+          {/* Admin Routes with Clean Layout */}
+          <Route 
+            path="/admin/login" 
+            element={
+              <AdminLayout>
+                <AdminLogin />
+              </AdminLayout>
+            } 
+          />
+          <Route 
+            path="/admin" 
+            element={
+              <AdminLayout>
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              </AdminLayout>
+            } 
+          />
+          
+          {/* 404 Route */}
+          <Route 
+            path="*" 
+            element={
+              <PublicLayout>
+                <ErrorFallback error={{ message: 'Page not found' }} />
+              </PublicLayout>
+            } 
+          />
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
@@ -85,8 +142,12 @@ function AppRoutes() {
  */
 export default function App() {
   return (
-    <LanguageProvider>
-      <AppRoutes />
-    </LanguageProvider>
+    <Router>
+      <LanguageProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </LanguageProvider>
+    </Router>
   );
 }

@@ -1,0 +1,246 @@
+/**
+ * Admin Login Page Styles
+ * 
+ * Professional and secure styling for the admin login interface
+ * with responsive design and accessibility considerations
+ */
+
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #312e2b 0%, #4a4136 100%);
+  padding: 20px;
+}
+
+.admin-login-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.admin-login-header {
+  margin-bottom: 30px;
+}
+
+.admin-login-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #f0c987;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.admin-login-header h1 {
+  color: #312e2b;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: 'Georgia', serif;
+}
+
+.admin-login-header p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.admin-login-form {
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #312e2b;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #f0c987;
+  box-shadow: 0 0 0 3px rgba(240, 201, 135, 0.1);
+}
+
+.form-group input.error {
+  border-color: #e74c3c;
+  background-color: #fdf2f2;
+}
+
+.form-group input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.general-error {
+  background-color: #fdf2f2;
+  border: 1px solid #e74c3c;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-login-button {
+  width: 100%;
+  background-color: #f0c987;
+  color: #312e2b;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.admin-login-button:hover:not(:disabled) {
+  background-color: #e0b36d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(240, 201, 135, 0.3);
+}
+
+.admin-login-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #312e2b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.admin-login-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e1e1;
+  text-align: center;
+}
+
+.admin-login-footer p {
+  color: #666;
+  font-size: 0.85rem;
+  margin: 5px 0;
+}
+
+.admin-login-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #312e2b 0%, #4a4136 100%);
+  color: white;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+  .admin-login-page {
+    padding: 15px;
+  }
+
+  .admin-login-container {
+    padding: 30px 25px;
+  }
+
+  .admin-login-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .admin-login-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .admin-login-button {
+    padding: 12px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .admin-login-container {
+    border: 2px solid #000;
+  }
+
+  .form-group input {
+    border-color: #000;
+  }
+
+  .admin-login-button {
+    border: 2px solid #312e2b;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .admin-login-button,
+  .form-group input,
+  .button-spinner,
+  .loading-spinner {
+    transition: none;
+    animation: none;
+  }
+}

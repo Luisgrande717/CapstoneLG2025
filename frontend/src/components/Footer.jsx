@@ -7,6 +7,8 @@
  * @returns {JSX.Element} Footer with parish info and social links
  */
 
+import { useState } from 'react';
+import axios from 'axios';
 import './Footer.css';
 import { useLanguage } from '../context/LanguageContext';
 import facebookIcon from '../assets/facebook-icon.png';
@@ -15,12 +17,58 @@ import youtubeIcon from '../assets/youtube-icon.png';
 import tiktokIcon from '../assets/tiktok-icon.png';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  const handleSubscribe = e => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    // TODO: Implement newsletter subscription
-    console.log('Newsletter subscription submitted');
+    
+    if (!email.trim()) {
+      setMessage(t('emailRequired', { fallback: 'Email is required' }));
+      setIsError(true);
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage('');
+    setIsError(false);
+
+    try {
+      const response = await axios.post('/api/subscriptions/subscribe', {
+        email,
+        preferredLanguage: language,
+        source: 'footer'
+      });
+
+      setMessage(response.data.message);
+      setIsError(false);
+      setEmail('');
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
+
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setMessage(
+        error.response?.data?.error || 
+        t('subscriptionError', { fallback: 'Failed to subscribe. Please try again.' })
+      );
+      setIsError(true);
+      
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setMessage('');
+        setIsError(false);
+      }, 5000);
+
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -60,11 +108,24 @@ const Footer = () => {
           <form className="connect-form" onSubmit={handleSubscribe}>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder={t('emailPlaceholder', { fallback: 'Your email' })}
+              disabled={isLoading}
               required
             />
-            <button type="submit">{t('subscribe', { fallback: 'Subscribe' })}</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading 
+                ? t('subscribing', { fallback: 'Subscribing...' })
+                : t('subscribe', { fallback: 'Subscribe' })
+              }
+            </button>
           </form>
+          {message && (
+            <div className={`subscription-message ${isError ? 'error' : 'success'}`}>
+              {message}
+            </div>
+          )}
         </div>
       </div>
 

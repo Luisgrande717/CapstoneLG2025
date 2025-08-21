@@ -23,6 +23,9 @@ import { dirname, join } from 'path';
 // Route imports
 import readingsRoute from './routes/readings.js';
 import eventsRoute from './routes/events.js';
+import authRoute from './routes/auth.js';
+import membersRoute from './routes/members.js';
+import subscriptionsRoute from './routes/subscriptions.js';
 
 // Database connection
 import connectDB from './config/db.js';
@@ -152,6 +155,9 @@ const mountRoutes = (app) => {
   // API routes
   app.use('/api/readings', readingsRoute);
   app.use('/api/events', eventsRoute);
+  app.use('/api/auth', authRoute);
+  app.use('/api/members', membersRoute);
+  app.use('/api/subscriptions', subscriptionsRoute);
 
   // Root endpoint
   app.get('/', (req, res) => {

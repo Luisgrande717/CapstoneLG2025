@@ -33,8 +33,47 @@ const NAV_ITEMS = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [member, setMember] = useState(null);
   const { language, toggleLanguage, t, isLoading } = useLanguage();
   const location = useLocation();
+
+  /**
+   * Check for logged in member
+   */
+  useEffect(() => {
+    const checkMemberAuth = async () => {
+      const token = localStorage.getItem('memberToken');
+      if (token) {
+        try {
+          const response = await fetch('/api/members/profile', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setMember(data.data.member);
+          } else {
+            localStorage.removeItem('memberToken');
+            setMember(null);
+          }
+        } catch (error) {
+          console.error('Member auth check failed:', error);
+          localStorage.removeItem('memberToken');
+          setMember(null);
+        }
+      }
+    };
+
+    checkMemberAuth();
+  }, []);
+
+  /**
+   * Handle member logout
+   */
+  const handleMemberLogout = () => {
+    localStorage.removeItem('memberToken');
+    setMember(null);
+    setIsOpen(false);
+  };
 
   /**
    * Handles scroll effect for navbar styling
@@ -151,18 +190,34 @@ const Navbar = () => {
             </li>
           ))}
 
-          {/* Member Login */}
-          <li className="auth-item" role="none">
-            <Link
-              to="/login"
-              className={`nav-link login-link ${isActivePath('/login') ? 'active' : ''}`}
-              onClick={closeMobileMenu}
-              role="menuitem"
-              aria-current={isActivePath('/login') ? 'page' : undefined}
-            >
-              {t('nav.login', { fallback: 'Member Login' })}
-            </Link>
-          </li>
+          {/* Member Authentication */}
+          {member ? (
+            <li className="member-info" role="none">
+              <span className="member-name">
+                {t('welcome', { fallback: 'Welcome' })}, {member.firstName}
+              </span>
+              <button
+                onClick={handleMemberLogout}
+                className="logout-button"
+                role="menuitem"
+                aria-label={t('logout', { fallback: 'Logout' })}
+              >
+                {t('logout', { fallback: 'Logout' })}
+              </button>
+            </li>
+          ) : (
+            <li className="auth-item" role="none">
+              <Link
+                to="/login"
+                className={`nav-link login-link ${isActivePath('/login') ? 'active' : ''}`}
+                onClick={closeMobileMenu}
+                role="menuitem"
+                aria-current={isActivePath('/login') ? 'page' : undefined}
+              >
+                {t('nav.login', { fallback: 'Member Login' })}
+              </Link>
+            </li>
+          )}
 
           {/* Language Toggle */}
           <li className="lang-item" role="none">

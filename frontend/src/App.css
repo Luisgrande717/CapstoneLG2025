@@ -71,6 +71,17 @@ button:focus,
   outline-offset: 2px;
 }
 
+/* Admin Layout Styles */
+.admin-layout {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.admin-main-content {
+  min-height: 100vh;
+  padding: 0;
+}
+
 /* Print styles */
 @media print {
   .main-content {
