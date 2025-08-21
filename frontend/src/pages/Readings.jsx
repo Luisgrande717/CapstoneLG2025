@@ -48,14 +48,8 @@ const Readings = () => {
             <h3>{reading.title}</h3>
             <p style={{ whiteSpace: 'pre-line' }}>{reading.excerpt}</p>
 
-            <a
-              href={reading.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="read-more-button">
-                Read Full Passage at USCCB
-              </button>
+            <a href={reading.link} target="_blank" rel="noopener noreferrer">
+              <button className="read-more-button">Read Full Passage at USCCB</button>
             </a>
           </>
         ) : null}

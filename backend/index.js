@@ -1,38 +1,212 @@
-//  Import wiring for backend
+/**
+ * Our Lady of Fatima Parish API Server
+ * 
+ * A modern Express.js server providing:
+ * - Daily scripture readings via web scraping
+ * - Event management system
+ * - MongoDB integration
+ * - CORS configuration for frontend
+ * - Comprehensive error handling
+ * - Request logging and validation
+ * 
+ * @author Parish Development Team
+ * @version 2.0.0
+ * @since 2025
+ */
+
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors'; //  Add CORS middleware
-import readingsRoute from './routes/readings.js'; // must include .js extension!
-import eventsRoute from './routes/events.js'; //  Event route for admin dashboard
-import connectDB from './config/db.js'; // use .js extension explicitly
+import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-dotenv.config(); //  Load .env configs
-connectDB();     //  Connect to MongoDB before routes mount
+// Route imports
+import readingsRoute from './routes/readings.js';
+import eventsRoute from './routes/events.js';
 
-const app = express(); //  INIT app BEFORE using middleware
-const port = 8080;
+// Database connection
+import connectDB from './config/db.js';
 
-//  Parse incoming JSON bodies for POST requests
-app.use(express.json());
+// Load environment variables
+dotenv.config();
 
-//  Enable CORS to allow frontend at localhost:5173
-app.use(cors({
-  origin: 'http://localhost:5173', // only allow requests from React dev server
-  methods: ['GET', 'POST'],        // support reading and creation
-  credentials: true
-}));
+// ES Module directory resolution
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-//  Optional: Allow any origin (for testing only—not safe for production)
-// app.use(cors()); //  This allows all domains—commented out intentionally
+// Environment configuration
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const PORT = process.env.PORT || 8080;
+const FRONTEND_URLS = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000'
+];
 
-//  Mount API routes
-app.use('/api/readings', readingsRoute); // dynamic scripture scraping
-app.use('/api/events', eventsRoute);     // admin event creation & listing
+/**
+ * Initialize Express application with middleware
+ */
+const createApp = () => {
+  const app = express();
 
-//  Base route for testing
-app.get('/', (req, res) => {
-  res.send('Hello (from server)');
-});
+  // Trust proxy for accurate client IPs
+  app.set('trust proxy', 1);
 
-//  Start the server
-app.listen(port, () => console.log(' Listening on port: ' + port));
+  // Request logging middleware
+  app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`${timestamp} - ${req.method} ${req.path} - ${req.ip}`);
+    next();
+  });
+
+  // Body parsing middleware
+  app.use(express.json({ limit: '10mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+  // CORS configuration
+  app.use(cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, etc.)
+      if (!origin) return callback(null, true);
+      
+      if (FRONTEND_URLS.includes(origin) || NODE_ENV === 'development') {
+        return callback(null, true);
+      }
+      
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    credentials: true,
+    maxAge: 86400 // Cache preflight for 24 hours
+  }));
+
+  return app;
+};
+
+/**
+ * Error handling middleware
+ */
+const errorHandler = (err, req, res, next) => {
+  console.error(`Error: ${err.message}`);
+  console.error(err.stack);
+
+  // Default error
+  let error = { ...err };
+  error.message = err.message;
+
+  // CORS errors
+  if (err.message.includes('CORS policy')) {
+    error.message = 'Cross-origin request blocked';
+    error.statusCode = 403;
+  }
+
+  // Mongoose validation errors
+  if (err.name === 'ValidationError') {
+    const message = Object.values(err.errors).map(val => val.message);
+    error.message = message.join(', ');
+    error.statusCode = 400;
+  }
+
+  // Mongoose duplicate key
+  if (err.code === 11000) {
+    const message = 'Duplicate field value entered';
+    error.message = message;
+    error.statusCode = 400;
+  }
+
+  res.status(error.statusCode || 500).json({
+    success: false,
+    error: error.message || 'Server Error',
+    timestamp: new Date().toISOString()
+  });
+};
+
+/**
+ * 404 handler
+ */
+const notFound = (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: `Route ${req.originalUrl} not found`,
+    timestamp: new Date().toISOString()
+  });
+};
+
+/**
+ * Mount API routes with proper error handling
+ */
+const mountRoutes = (app) => {
+  // Health check endpoint
+  app.get('/health', (req, res) => {
+    res.status(200).json({
+      status: 'OK',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: NODE_ENV,
+      version: '2.0.0'
+    });
+  });
+
+  // API routes
+  app.use('/api/readings', readingsRoute);
+  app.use('/api/events', eventsRoute);
+
+  // Root endpoint
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Our Lady of Fatima Parish API',
+      version: '2.0.0',
+      documentation: '/api/docs',
+      health: '/health'
+    });
+  });
+
+  // 404 handler
+  app.use(notFound);
+
+  // Global error handler
+  app.use(errorHandler);
+};
+
+/**
+ * Start the server
+ */
+const startServer = async () => {
+  try {
+    // Connect to database
+    await connectDB();
+    console.log('✅ Database connected successfully');
+
+    // Create and configure app
+    const app = createApp();
+    mountRoutes(app);
+
+    // Start listening
+    const server = app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📍 Environment: ${NODE_ENV}`);
+      console.log(`🌐 Allowed origins: ${FRONTEND_URLS.join(', ')}`);
+    });
+
+    // Graceful shutdown
+    const gracefulShutdown = (signal) => {
+      console.log(`\n🛑 Received ${signal}, shutting down gracefully...`);
+      server.close(() => {
+        console.log('✅ Server closed');
+        process.exit(0);
+      });
+    };
+
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+};
+
+// Start the application
+startServer();

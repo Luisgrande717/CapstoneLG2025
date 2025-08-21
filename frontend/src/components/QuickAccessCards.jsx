@@ -1,49 +1,69 @@
-// frontend/src/components/QuickAccessCards.jsx
+/**
+ * Quick Access Cards Component
+ *
+ * Displays navigation cards for key parish features
+ * Supports bilingual content with automatic translation
+ *
+ * @returns {JSX.Element} Grid of quick access cards
+ */
+
 import './QuickAccessCards.css';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 import SacramentsIcon from '../assets/sacraments-icon.png';
 import VolunteerIcon from '../assets/volunteer-icon.png';
 import DailyReadingsIcon from '../assets/dailyreading-icon.png';
 import DonateIcon from '../assets/donate-icon.png';
 
-const cards = [
-  {
-    title: 'Sacraments',
-    description: 'Learn about Baptism, Communion, and Confirmation.',
-    icon: SacramentsIcon,
-    link: '/sacraments'
-  },
-  {
-    title: 'Volunteer',
-    description: 'Get involved and make a difference.',
-    icon: VolunteerIcon,
-    link: '/volunteer'
-  },
-  {
-    title: 'Daily Readings',
-    description: 'Reflect on today’s scripture.',
-    icon: DailyReadingsIcon,
-    link: '/readings'
-  },
-  {
-    title: 'Donate',
-    description: 'Support our parish’s mission.',
-    icon: DonateIcon,
-    link: '/donate'
-  }
-];
-
 const QuickAccessCards = () => {
+  const { t } = useLanguage();
+
+  // Define cards with translation keys
+  const cards = [
+    {
+      titleKey: 'sacraments',
+      descriptionKey: 'sacramentsDesc',
+      icon: SacramentsIcon,
+      link: '/sacraments',
+      fallbackTitle: 'Sacraments',
+      fallbackDesc: 'Learn about Baptism, Communion, and Confirmation.',
+    },
+    {
+      titleKey: 'volunteer',
+      descriptionKey: 'volunteerDesc',
+      icon: VolunteerIcon,
+      link: '/volunteer',
+      fallbackTitle: 'Volunteer',
+      fallbackDesc: 'Get involved and make a difference.',
+    },
+    {
+      titleKey: 'dailyReadingsCard',
+      descriptionKey: 'dailyReadingsDesc',
+      icon: DailyReadingsIcon,
+      link: '/readings',
+      fallbackTitle: 'Daily Readings',
+      fallbackDesc: "Reflect on today's scripture.",
+    },
+    {
+      titleKey: 'donateCard',
+      descriptionKey: 'donateDesc',
+      icon: DonateIcon,
+      link: '/donate',
+      fallbackTitle: 'Donate',
+      fallbackDesc: "Support our parish's mission.",
+    },
+  ];
+
   return (
     <section className="quick-access">
-      <h2>Quick Access</h2>
+      <h2>{t('quickAccess', { fallback: 'Quick Access' })}</h2>
       <div className="card-grid">
         {cards.map((card, idx) => (
           <Link key={idx} to={card.link} className="access-card">
-            <img src={card.icon} alt={card.title} />
-            <h3>{card.title}</h3>
-            <p>{card.description}</p>
+            <img src={card.icon} alt={t(card.titleKey, { fallback: card.fallbackTitle })} />
+            <h3>{t(card.titleKey, { fallback: card.fallbackTitle })}</h3>
+            <p>{t(card.descriptionKey, { fallback: card.fallbackDesc })}</p>
           </Link>
         ))}
       </div>

@@ -1,20 +1,32 @@
+/**
+ * Mass Page Styles
+ * 
+ * Responsive design for Mass schedule carousel with mobile-first approach
+ * Fixes card stacking issues on mobile devices
+ */
+
 .mass-page {
   min-height: 100vh;
   padding: 60px 20px;
   background-color: #f4f2ec;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .mass-carousel {
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
+/* Fix carousel slide positioning */
 .carousel-slide {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  width: 100% !important;
+  position: relative;
 }
 
 .mass-card {
@@ -26,6 +38,9 @@
   margin: 0 auto;
   text-align: center;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
 .mass-card h2 {
@@ -67,13 +82,193 @@
   margin-top: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: block;
 }
 
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .mass-page {
+    padding: 80px 10px 20px;
+    min-height: calc(100vh - 80px);
+  }
 
-/* .mass-image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-} */
+  .mass-carousel {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .carousel-slide {
+    padding: 10px !important;
+    margin: 0;
+    width: 100% !important;
+  }
+
+  .mass-card {
+    padding: 20px;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .mass-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  .mass-section {
+    margin-top: 20px;
+  }
+
+  .mass-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+
+  .mass-section p,
+  .mass-section ul {
+    font-size: 1rem;
+    margin-top: 5px;
+  }
+
+  .mass-image {
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mass-page {
+    padding: 80px 5px 20px;
+  }
+
+  .carousel-slide {
+    padding: 5px !important;
+  }
+
+  .mass-card {
+    padding: 15px;
+    border-radius: 6px;
+  }
+
+  .mass-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+
+  .mass-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .mass-section p,
+  .mass-section ul {
+    font-size: 0.9rem;
+  }
+}
+
+/* Slick Carousel Mobile Fixes */
+@media (max-width: 768px) {
+  .slick-slider {
+    margin: 0;
+  }
+
+  .slick-list {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .slick-track {
+    margin-left: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .slick-slide {
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+
+  .slick-slide > div {
+    height: 100%;
+    padding: 0;
+  }
+
+  /* Fix dots positioning on mobile */
+  .slick-dots {
+    bottom: -40px;
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .slick-dots li {
+    margin: 0 3px;
+  }
+
+  .slick-dots li button:before {
+    font-size: 10px;
+    color: #8b4513;
+    opacity: 0.5;
+  }
+
+  .slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: #654321;
+  }
+
+  /* Arrow positioning for mobile */
+  .slick-prev,
+  .slick-next {
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+  }
+
+  .slick-prev {
+    left: 10px;
+  }
+
+  .slick-next {
+    right: 10px;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    font-size: 20px;
+    color: #8b4513;
+  }
+}
+
+/* Additional carousel fixes for edge cases */
+.slick-initialized .slick-slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure proper spacing and prevent overlap */
+.mass-carousel .slick-list {
+  margin: 0 -10px;
+}
+
+.mass-carousel .slick-slide {
+  padding: 0 10px;
+}
+
+/* Prevent text from being cut off */
+.mass-card * {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Improve touch interactions on mobile */
+@media (max-width: 768px) {
+  .slick-slider {
+    touch-action: pan-y;
+  }
+
+  .slick-list {
+    touch-action: pan-y;
+  }
+}

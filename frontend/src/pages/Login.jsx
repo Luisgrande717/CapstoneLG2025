@@ -12,7 +12,9 @@ const Login = () => {
           <input type="password" placeholder="Password" disabled />
           <div className="login-actions">
             <button disabled>Login</button>
-            <button disabled className="register-btn">Register</button>
+            <button disabled className="register-btn">
+              Register
+            </button>
           </div>
         </form>
       </div>

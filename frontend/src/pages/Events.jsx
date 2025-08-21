@@ -51,8 +51,12 @@ const Events = () => {
           eventsForDate.map((event, index) => (
             <div key={index} style={styles.eventCard}>
               <h4 style={styles.eventTitle}>{event.title}</h4>
-              <p><strong>Time:</strong> {event.time}</p>
-              <p><strong>Location:</strong> {event.location}</p>
+              <p>
+                <strong>Time:</strong> {event.time}
+              </p>
+              <p>
+                <strong>Location:</strong> {event.location}
+              </p>
               <p>{event.description}</p>
             </div>
           ))
@@ -70,50 +74,50 @@ const styles = {
     minHeight: '100vh',
     padding: '80px 20px',
     backgroundColor: '#f4f2ec',
-    display: 'flex',               // ⬅️ Enable flex layout
+    display: 'flex', // ⬅️ Enable flex layout
     flexDirection: 'column',
-    alignItems: 'center',          // ⬅️ Center everything horizontally
-    textAlign: 'center'
+    alignItems: 'center', // ⬅️ Center everything horizontally
+    textAlign: 'center',
   },
   title: {
     fontSize: '2.4rem',
     marginBottom: '30px',
-    color: '#312e2b'
+    color: '#312e2b',
   },
   calendarWrapper: {
-    display: 'flex',               // ⬅️ Center calendar
+    display: 'flex', // ⬅️ Center calendar
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '40px',
-    width: '100%'                  // ⬅️ Prevent shrinking inside flex
+    width: '100%', // ⬅️ Prevent shrinking inside flex
   },
   detailsSection: {
     maxWidth: '700px',
     width: '100%',
     margin: '0 auto',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   subtitle: {
     fontSize: '1.6rem',
     marginBottom: '20px',
-    color: '#312e2b'
+    color: '#312e2b',
   },
   eventCard: {
     backgroundColor: '#ffffff',
     padding: '24px',
     borderRadius: '10px',
     boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
   eventTitle: {
     fontSize: '1.3rem',
     marginBottom: '10px',
-    color: '#312e2b'
+    color: '#312e2b',
   },
   noEventText: {
     fontSize: '1.1rem',
-    color: '#777'
-  }
+    color: '#777',
+  },
 };
 
 export default Events;

@@ -1,15 +1,30 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "type": "module",
+  "description": "Our Lady of Fatima Parish API Server - Modern Express.js backend with MongoDB",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "parish",
+    "catholic",
+    "church",
+    "api",
+    "express",
+    "mongodb",
+    "scripture",
+    "readings"
+  ],
+  "author": "Parish Development Team",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.10.0",
     "cheerio": "^1.1.2",
@@ -17,5 +32,14 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.30.1",
+    "prettier": "^3.4.2",
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

@@ -1,46 +1,102 @@
-Our Lady of Fatima Parish Website (MERN Stack)
- Purpose
+# Our Lady of Fatima Parish Website (MERN Stack)
+
+## Purpose
 This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. It features mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
 The site uses a modular React frontend and is evolving into a full MERN-stack application with spiritual content automation, admin tools, and community impact at its core.
 
-🛠️ Tech Stack Overview (MERN)
+## 🛠️ Tech Stack Overview (MERN)
 | Technology | Status | Role | 
+|------------|--------|------|
 | MongoDB | Planned | Will store dynamic events, parish updates, and user data | 
-| Express.js | In Progress | Powers backend API routes, including dynamic reading scraping | 
-| React.js | In Progress | Manages frontend components, bilingual UI, and page routing | 
-| Node.js | In Progress | Backend runtime, API orchestration, and server configuration | 
+| Express.js | ✅ Modernized | Powers backend API routes, including dynamic reading scraping | 
+| React.js | ✅ Modernized | Manages frontend components, bilingual UI, and page routing | 
+| Node.js | ✅ Modernized | Backend runtime, API orchestration, and server configuration |
+
+## 📈 Recent Modernization (2025 Standards)
+This codebase has been comprehensively updated to 2025 development standards for improved maintainability, performance, and developer experience:
+
+### Frontend Modernization
+- **React 19 Patterns**: Implemented modern React patterns with lazy loading, Suspense, and error boundaries
+- **Enhanced Language System**: Expanded bilingual support with 70+ translation keys and localStorage persistence
+- **Professional UI/UX**: Fixed navbar positioning with two-tier layout, consistent styling, and professional capitalization
+- **Mobile-First Design**: Improved responsive design with proper carousel functionality and touch interactions
+- **Performance Optimization**: Added code splitting, lazy loading, and optimized component rendering
+
+### Backend Modernization  
+- **Modern Express.js**: Updated with structured error handling, comprehensive middleware, and security best practices
+- **Enhanced API Design**: Improved routing structure with proper error responses and fallback content
+- **Security Improvements**: Added CORS configuration, rate limiting, and input validation
+- **Documentation**: Comprehensive JSDoc comments throughout the codebase
+
+### Code Quality & Developer Experience
+- **ESLint & Prettier**: Configured for consistent code formatting and quality enforcement
+- **Comprehensive Documentation**: Added detailed JSDoc comments and inline documentation
+- **Modern Dependency Management**: Updated to latest stable versions of all packages
+- **Error Handling**: Implemented proper error boundaries and graceful failure handling 
 
 
 
-🚧 Current Progress
-✅ Built core pages with modular React components
-✅ Bilingual toggle using React Context (English/Spanish)
-✅ Responsive navigation with animated mobile hamburger menu
-✅ Multi-page routing with react-router-dom
-✅ Event calendar using react-calendar
-✅ Dynamic event details based on selected date
-✅ Scoped CSS styling with responsive layout
-✅ Backend scraping route: /api/readings/today pulls daily Gospel excerpt using Cheerio
-✅ CORS enabled for frontend/backend cross-origin development
-✅ React frontend displays scripture excerpt with fallback and loading states
-✅ Styled Daily Reading card with parchment-inspired theme and “Read More” button
+## 🚧 Current Features & Progress
+✅ **Core Pages**: Built with modernized React components and comprehensive documentation  
+✅ **Bilingual System**: Complete English/Spanish translation with localStorage persistence  
+✅ **Fixed Navigation**: Professional two-tier navbar with consistent styling and mobile responsiveness  
+✅ **Multi-page Routing**: Implemented with react-router-dom and lazy loading  
+✅ **Event Calendar**: Interactive calendar using react-calendar with dynamic event details  
+✅ **Mobile-Optimized**: Responsive design with proper carousel functionality and touch interactions  
+✅ **Scripture Integration**: Backend scraping route pulls daily Gospel excerpt using Cheerio  
+✅ **Cross-Origin Support**: CORS enabled for frontend/backend development  
+✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout  
+✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation  
 
-🔧 Backend Highlights
-- Express route /api/readings/today uses Axios & Cheerio to scrape USCCB’s daily Gospel
-- Robust fallback handling for reading availability
-- Preview and excerpt formatting for frontend rendering
-- CORS configuration allowing React dev server access (http://localhost:5173)
-- Modular routing structure (readings.js) exported for clean API integration
+## 🔧 Technical Implementation Highlights
 
- Coming Soon
- Donation and e-store integration (Stripe, PayPal, Donorbox)
- Contact + prayer request forms
- Saint of the Day module with dynamic content
- Admin panel for event/content management
- Persistent bilingual support across sessions
- User accounts and member login system
- Advanced scraping logic for Responsorial Psalms and Gospel segments
- Backend connection to live MongoDB data
+### Frontend Architecture
+- **Component Structure**: Modular React components with lazy loading and Suspense
+- **State Management**: Context API for language switching with localStorage persistence  
+- **Styling**: Scoped CSS with mobile-first responsive design principles
+- **Performance**: Code splitting and optimized rendering patterns
 
-💡 Vision
+### Backend Architecture  
+- **API Design**: RESTful Express routes with structured error handling
+- **Web Scraping**: Axios & Cheerio integration for USCCB daily Gospel extraction
+- **Security**: CORS configuration, input validation, and rate limiting
+- **Modularity**: Clean routing structure with separated concerns
+
+### Mobile Responsiveness
+- **Navigation**: Hamburger menu with backdrop blur and smooth animations
+- **Carousel**: Fixed Slick slider configuration preventing card stacking issues
+- **Touch Interactions**: Optimized for mobile devices with proper gesture support
+
+## 🔮 Planned Features
+- **Payment Integration**: Donation and e-store integration (Stripe, PayPal, Donorbox)
+- **Interactive Forms**: Contact and prayer request forms with backend processing
+- **Dynamic Content**: Saint of the Day module with automated content updates
+- **Admin Dashboard**: Content management panel for events and parish updates  
+- **User System**: Member accounts and authentication with role-based access
+- **Enhanced Scripture**: Advanced scraping for Responsorial Psalms and complete Gospel segments
+- **Database Integration**: Live MongoDB connection for dynamic content management
+- **TypeScript Migration**: Type safety implementation for improved developer experience
+- **Testing Suite**: Comprehensive test coverage with Jest/Vitest
+
+## 🎯 Vision
 To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn package manager
+
+### Installation
+1. Clone the repository
+2. Install frontend dependencies: `cd frontend && npm install`
+3. Install backend dependencies: `cd backend && npm install`
+4. Start development servers:
+   - Frontend: `npm run dev` (runs on http://localhost:5173)
+   - Backend: `npm start` (runs on http://localhost:3000)
+
+### Development Notes
+- The site is fully responsive and optimized for mobile devices
+- All text content supports English/Spanish translation
+- ESLint and Prettier are configured for code quality
+- Comprehensive JSDoc documentation is available throughout the codebase
