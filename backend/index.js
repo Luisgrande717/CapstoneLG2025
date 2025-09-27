@@ -17,6 +17,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import mongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -24,7 +28,6 @@ import { dirname, join } from 'path';
 import readingsRoute from './routes/readings.js';
 import eventsRoute from './routes/events.js';
 import authRoute from './routes/auth.js';
-import membersRoute from './routes/members.js';
 import subscriptionsRoute from './routes/subscriptions.js';
 
 // Database connection
@@ -55,6 +58,58 @@ const createApp = () => {
   // Trust proxy for accurate client IPs
   app.set('trust proxy', 1);
 
+  // Security Middleware
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "blob:"],
+        connectSrc: ["'self'"]
+      }
+    }
+  }));
+
+  // Rate limiting
+  const generalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: {
+      success: false,
+      error: 'Too many requests from this IP, please try again later.',
+      retryAfter: 15 * 60 // seconds
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Stricter rate limiting for auth endpoints
+  const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limit each IP to 5 authentication requests per windowMs
+    message: {
+      success: false,
+      error: 'Too many authentication attempts, please try again later.',
+      retryAfter: 15 * 60
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Apply general rate limiting to all requests
+  app.use(generalLimiter);
+
+  // Apply auth rate limiting to authentication routes
+  app.use('/api/auth', authLimiter);
+
+  // Data sanitization against NoSQL query injection
+  app.use(mongoSanitize());
+
+  // Prevent HTTP Parameter Pollution attacks
+  app.use(hpp());
+
   // Request logging middleware
   app.use((req, res, next) => {
     const timestamp = new Date().toISOString();
@@ -65,6 +120,7 @@ const createApp = () => {
   // Body parsing middleware
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 
   // CORS configuration
   app.use(cors({
@@ -156,7 +212,6 @@ const mountRoutes = (app) => {
   app.use('/api/readings', readingsRoute);
   app.use('/api/events', eventsRoute);
   app.use('/api/auth', authRoute);
-  app.use('/api/members', membersRoute);
   app.use('/api/subscriptions', subscriptionsRoute);
 
   // Root endpoint

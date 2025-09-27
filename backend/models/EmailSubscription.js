@@ -35,7 +35,7 @@ const emailSubscriptionSchema = new mongoose.Schema({
   },
   source: {
     type: String,
-    enum: ['footer', 'member_registration', 'direct'],
+    enum: ['footer', 'direct'],
     default: 'footer'
   },
   unsubscribeToken: {

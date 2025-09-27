@@ -30,7 +30,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy-loaded pages for better performance
 const Homepage = lazy(() => import('./pages/Homepage'));
-const Login = lazy(() => import('./pages/Login'));
 const Mass = lazy(() => import('./pages/Mass'));
 const Events = lazy(() => import('./pages/Events'));
 const Donate = lazy(() => import('./pages/Donate'));
@@ -91,7 +90,6 @@ function AppRoutes() {
         <Routes>
           {/* Public Routes with Standard Layout */}
           <Route path="/" element={<PublicLayout><Homepage /></PublicLayout>} />
-          <Route path="/login" element={<PublicLayout><Login /></PublicLayout>} />
           <Route path="/mass" element={<PublicLayout><Mass /></PublicLayout>} />
           <Route path="/events" element={<PublicLayout><Events /></PublicLayout>} />
           <Route path="/donate" element={<PublicLayout><Donate /></PublicLayout>} />

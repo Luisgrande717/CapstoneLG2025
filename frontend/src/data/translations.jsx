@@ -22,7 +22,6 @@ export const translations = {
       sacraments: 'Sacraments',
       aboutUs: 'About Us',
       donate: 'Donate',
-      login: 'Member Login',
     },
 
     // Common UI elements
@@ -293,7 +292,6 @@ export const translations = {
       sacraments: 'Sacramentos',
       aboutUs: 'Acerca de Nosotros',
       donate: 'Donar',
-      login: 'Acceso de Miembro',
     },
 
     // Common UI elements

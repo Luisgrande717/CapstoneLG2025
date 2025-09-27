@@ -21,7 +21,7 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Professional UI/UX**: Fixed navbar positioning with two-tier layout, consistent styling, and professional capitalization
 - **Mobile-First Design**: Improved responsive design with proper carousel functionality and touch interactions
 - **Performance Optimization**: Added code splitting, lazy loading, and optimized component rendering
-- **About Us Transformation**: Complete redesign from volunteer section to comprehensive parish information with side navigation and section-specific content
+- **About Us Transformation**: Complete redesign from volunteer section to comprehensive parish information with side navigation, scrollable content cards, and enhanced UX for long-form content
 
 ### Backend Modernization  
 - **Modern Express.js**: Updated with structured error handling, comprehensive middleware, and security best practices
@@ -48,15 +48,16 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Cross-Origin Support**: CORS enabled for frontend/backend development
 ✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout
 ✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation
-✅ **About Us Page**: Comprehensive three-section layout with side navigation for Our Lady of Fatima, Claretians, and Office Staff information  
+✅ **About Us Page**: Comprehensive three-section layout with side navigation, scrollable content cards, and detailed parish information  
 
 ## 🔧 Technical Implementation Highlights
 
 ### Frontend Architecture
 - **Component Structure**: Modular React components with lazy loading and Suspense
-- **State Management**: Context API for language switching with localStorage persistence  
-- **Styling**: Scoped CSS with mobile-first responsive design principles
+- **State Management**: Context API for language switching with localStorage persistence
+- **Styling**: Scoped CSS with mobile-first responsive design principles and custom scrollbar styling
 - **Performance**: Code splitting and optimized rendering patterns
+- **UX Design**: Fixed-height scrollable containers with responsive breakpoints for optimal content display
 
 ### Backend Architecture
 - **API Design**: RESTful Express routes with structured error handling

@@ -27,12 +27,6 @@ const AdminDashboard = () => {
     eventsByCategory: [],
     recentEvents: 0
   });
-  const [memberStats, setMemberStats] = useState({
-    totalMembers: 0,
-    activeMembers: 0,
-    pendingMembers: 0,
-    recentMembers: 0
-  });
   const [subscriptionStats, setSubscriptionStats] = useState({
     totalSubscriptions: 0,
     bySource: {},
@@ -61,24 +55,14 @@ const AdminDashboard = () => {
       });
 
       // Fetch all statistics in parallel
-      const [eventsResponse, membersResponse, subscriptionsResponse, allEventsResponse] = await Promise.all([
+      const [eventsResponse, subscriptionsResponse, allEventsResponse] = await Promise.all([
         authAxios.get('http://localhost:8080/api/events/stats'),
-        authAxios.get('http://localhost:8080/api/members/stats'),
         axios.get('http://localhost:8080/api/subscriptions/stats'), // Public endpoint
         authAxios.get('http://localhost:8080/api/events?limit=100') // Get all events for calendar
       ]);
 
       if (eventsResponse.data.success) {
         setStats(eventsResponse.data.data);
-      }
-
-      if (membersResponse.data.success) {
-        setMemberStats({
-          totalMembers: membersResponse.data.data.totalMembers,
-          activeMembers: membersResponse.data.data.byStatus?.active || 0,
-          pendingMembers: membersResponse.data.data.byStatus?.pending || 0,
-          recentMembers: membersResponse.data.data.totalMembers // For now, using total as recent
-        });
       }
 
       if (subscriptionsResponse.data.success) {
@@ -100,14 +84,14 @@ const AdminDashboard = () => {
     fetchStats();
   }, []);
 
-  // Refresh stats when switching to overview or members tab
+  // Refresh stats when switching to overview tab
   useEffect(() => {
-    if (activeTab === 'overview' || activeTab === 'members') {
+    if (activeTab === 'overview') {
       fetchStats();
     }
   }, [activeTab]);
 
-  // Auto-refresh interval for overview and members tabs
+  // Auto-refresh interval for overview and calendar tabs
   useEffect(() => {
     // Clear existing interval
     if (refreshInterval) {
@@ -116,7 +100,7 @@ const AdminDashboard = () => {
     }
 
     // Set up auto-refresh for tabs that need real-time data
-    if (activeTab === 'overview' || activeTab === 'members' || activeTab === 'calendar') {
+    if (activeTab === 'overview' || activeTab === 'calendar') {
       const interval = setInterval(() => {
         fetchStats();
       }, 30000); // Refresh every 30 seconds
@@ -148,7 +132,6 @@ const AdminDashboard = () => {
     const tabs = [
       { id: 'overview', label: t('admin.dashboard.tabs.overview', { fallback: 'Overview' }) },
       { id: 'events', label: t('admin.dashboard.tabs.events', { fallback: 'Events' }) },
-      { id: 'members', label: t('admin.dashboard.tabs.members', { fallback: 'Members' }) },
       { id: 'calendar', label: t('admin.dashboard.tabs.calendar', { fallback: 'Calendar' }) },
       { id: 'profile', label: t('admin.dashboard.tabs.profile', { fallback: 'Profile' }) }
     ];
@@ -184,12 +167,6 @@ const AdminDashboard = () => {
         value: stats.publishedEvents,
         color: 'green',
         icon: '✅'
-      },
-      {
-        title: t('admin.dashboard.stats.totalMembers', { fallback: 'Total Members' }),
-        value: memberStats.totalMembers,
-        color: 'purple',
-        icon: '👥'
       },
       {
         title: t('admin.dashboard.stats.subscriptions', { fallback: 'Email Subscriptions' }),
@@ -315,79 +292,6 @@ const AdminDashboard = () => {
     </div>
   );
 
-  /**
-   * Render members management
-   */
-  const renderMembers = () => (
-    <div className="members-content">
-      <div className="members-header">
-        <h2>{t('admin.dashboard.members.title', { fallback: 'Member Management' })}</h2>
-        <button 
-          className="refresh-button"
-          onClick={fetchStats}
-          disabled={isLoading}
-          title={t('admin.dashboard.refresh', { fallback: 'Refresh Data' })}
-        >
-          {isLoading ? '⏳' : '🔄'} {t('admin.dashboard.refresh', { fallback: 'Refresh' })}
-        </button>
-      </div>
-      
-      <div className="members-stats">
-        <div className="member-stat-cards">
-          <div className="stat-card purple">
-            <div className="stat-icon">👥</div>
-            <div className="stat-content">
-              <h3>{memberStats.totalMembers}</h3>
-              <p>{t('admin.dashboard.stats.totalMembers', { fallback: 'Total Members' })}</p>
-            </div>
-          </div>
-          <div className="stat-card green">
-            <div className="stat-icon">✅</div>
-            <div className="stat-content">
-              <h3>{memberStats.activeMembers}</h3>
-              <p>{t('admin.dashboard.stats.activeMembers', { fallback: 'Active Members' })}</p>
-            </div>
-          </div>
-          <div className="stat-card orange">
-            <div className="stat-icon">⏳</div>
-            <div className="stat-content">
-              <h3>{memberStats.pendingMembers}</h3>
-              <p>{t('admin.dashboard.stats.pendingMembers', { fallback: 'Pending Approval' })}</p>
-            </div>
-          </div>
-          <div className="stat-card teal">
-            <div className="stat-icon">📧</div>
-            <div className="stat-content">
-              <h3>{subscriptionStats.totalSubscriptions}</h3>
-              <p>{t('admin.dashboard.stats.subscriptions', { fallback: 'Email Subscribers' })}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="subscription-breakdown">
-        <h3>{t('admin.dashboard.members.subscriptionBreakdown', { fallback: 'Subscription Sources' })}</h3>
-        <div className="breakdown-grid">
-          <div className="breakdown-item">
-            <span className="breakdown-label">{t('admin.dashboard.members.footer', { fallback: 'Footer Subscriptions' })}</span>
-            <span className="breakdown-value">{subscriptionStats.bySource?.footer || 0}</span>
-          </div>
-          <div className="breakdown-item">
-            <span className="breakdown-label">{t('admin.dashboard.members.registration', { fallback: 'Member Registrations' })}</span>
-            <span className="breakdown-value">{subscriptionStats.bySource?.member_registration || 0}</span>
-          </div>
-          <div className="breakdown-item">
-            <span className="breakdown-label">{t('admin.dashboard.members.english', { fallback: 'English Speakers' })}</span>
-            <span className="breakdown-value">{subscriptionStats.byLanguage?.en || 0}</span>
-          </div>
-          <div className="breakdown-item">
-            <span className="breakdown-label">{t('admin.dashboard.members.spanish', { fallback: 'Spanish Speakers' })}</span>
-            <span className="breakdown-value">{subscriptionStats.byLanguage?.es || 0}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   /**
    * Check if a date has events
@@ -516,8 +420,6 @@ const AdminDashboard = () => {
         return renderOverview();
       case 'events':
         return <EventManager />;
-      case 'members':
-        return renderMembers();
       case 'calendar':
         return renderCalendar();
       case 'profile':

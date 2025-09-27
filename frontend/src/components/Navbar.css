@@ -131,37 +131,6 @@
   background-color: #e0b36d;
 }
 
-/* Member Login Link - Consistent with other nav links */
-.login-link {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 10px 16px;
-  border-radius: 6px;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  display: inline-block;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
-  position: relative;
-}
-
-.login-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
-.login-link.active {
-  background-color: #f0c987;
-  color: #312e2b;
-  font-weight: 600;
-}
-
-/* Auth Item Container */
-.auth-item {
-  margin-left: 10px;
-}
 
 /* Language Toggle Container */
 .lang-item {
@@ -315,13 +284,11 @@
     width: 45px;
   }
 
-  .auth-item,
   .lang-item {
     margin-left: 0;
     width: 100%;
   }
 
-  .login-link,
   .lang-toggle {
     width: 100%;
     text-align: center;
@@ -356,68 +323,6 @@
   }
 }
 
-/* Member Info Styles */
-.member-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 8px 12px;
-  background-color: rgba(240, 201, 135, 0.1);
-  border-radius: 20px;
-  border: 1px solid rgba(240, 201, 135, 0.3);
-}
-
-.member-name {
-  color: #f0c987;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.3px;
-}
-
-.logout-button {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.logout-button:hover {
-  background-color: #c82333;
-  transform: translateY(-1px);
-}
-
-.logout-button:active {
-  transform: translateY(0);
-}
-
-/* Mobile responsiveness for member info */
-@media (max-width: 768px) {
-  .member-info {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 12px;
-    border-radius: 8px;
-    width: 100%;
-  }
-  
-  .member-name {
-    font-size: 0.85rem;
-  }
-  
-  .logout-button {
-    align-self: flex-end;
-    font-size: 0.75rem;
-    padding: 5px 10px;
-  }
-}
 
 /* Print Styles */
 @media print {

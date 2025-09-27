@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)",
+      "Bash(node:*)",
+      "Bash(npm uninstall:*)",
+      "Read(//c/Users/Luis/Desktop/Capstone2025/frontend/**)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
