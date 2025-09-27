@@ -31,43 +31,43 @@ router.get('/', optionalAuth, async (req, res) => {
       upcoming = 'true'
     } = req.query;
 
-    let query = {};
+    let mongoQuery = {};
 
     // If not authenticated or not admin/moderator, only show published events
     if (!req.user || !['admin', 'moderator'].includes(req.user.role)) {
-      query.published = true;
+      mongoQuery.published = true;
     }
 
     // Filter by category
     if (category) {
-      query.category = category;
+      mongoQuery.category = category;
     }
 
     // Filter by featured
     if (featured === 'true') {
-      query.featured = true;
+      mongoQuery.featured = true;
     }
 
     // Filter by date range
     if (startDate || endDate) {
-      query.startDate = {};
-      if (startDate) query.startDate.$gte = new Date(startDate);
-      if (endDate) query.startDate.$lte = new Date(endDate);
+      mongoQuery.startDate = {};
+      if (startDate) mongoQuery.startDate.$gte = new Date(startDate);
+      if (endDate) mongoQuery.startDate.$lte = new Date(endDate);
     }
 
     // Filter upcoming events
     if (upcoming === 'true') {
-      query.startDate = { ...query.startDate, $gte: new Date() };
+      mongoQuery.startDate = { ...mongoQuery.startDate, $gte: new Date() };
     }
 
-    const events = await Event.find(query)
+    const events = await Event.find(mongoQuery)
       .populate('createdBy', 'firstName lastName')
       .populate('lastModifiedBy', 'firstName lastName')
       .sort({ startDate: 1 })
       .limit(limit * 1)
       .skip((page - 1) * limit);
 
-    const total = await Event.countDocuments(query);
+    const total = await Event.countDocuments(mongoQuery);
 
     res.status(200).json({
       success: true,
@@ -213,14 +213,14 @@ router.get('/stats', authenticate, async (req, res) => {
  */
 router.get('/:id', optionalAuth, async (req, res) => {
   try {
-    let query = { _id: req.params.id };
+    let mongoQuery = { _id: req.params.id };
 
     // If not authenticated or not admin/moderator, only show published events
     if (!req.user || !['admin', 'moderator'].includes(req.user.role)) {
-      query.published = true;
+      mongoQuery.published = true;
     }
 
-    const event = await Event.findOne(query)
+    const event = await Event.findOne(mongoQuery)
       .populate('createdBy', 'firstName lastName')
       .populate('lastModifiedBy', 'firstName lastName');
 

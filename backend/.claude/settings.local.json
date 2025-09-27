@@ -6,7 +6,11 @@
       "Bash(node:*)",
       "Bash(npm uninstall:*)",
       "Read(//c/Users/Luis/Desktop/Capstone2025/frontend/**)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Read(//c/Users/Luis/Desktop/Capstone2025/**)",
+      "Bash(/bashes)"
     ],
     "deny": [],
     "ask": []
