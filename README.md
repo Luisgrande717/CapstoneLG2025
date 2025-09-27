@@ -48,7 +48,9 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Cross-Origin Support**: CORS enabled for frontend/backend development
 ✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout
 ✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation
-✅ **About Us Page**: Comprehensive three-section layout with side navigation, scrollable content cards, and detailed parish information  
+✅ **About Us Page**: Comprehensive three-section layout with side navigation, scrollable content cards, and detailed parish information
+✅ **Admin Dashboard**: Complete content management system with event creation, calendar view, and statistics
+✅ **Email Subscriptions**: Newsletter signup system with language preferences and subscription management
 
 ## 🔧 Technical Implementation Highlights
 
@@ -65,6 +67,8 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Security**: CORS configuration, input validation, and rate limiting
 - **Modularity**: Clean routing structure with separated concerns
 - **API Endpoints**: Updated for production deployment with proper localhost configurations
+- **Admin Authentication**: JWT-based admin authentication for content management
+- **Email Management**: Subscription system with language preferences and analytics
 
 ### Mobile Responsiveness
 - **Navigation**: Hamburger menu with backdrop blur and smooth animations
@@ -75,12 +79,11 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Payment Integration**: Donation and e-store integration (Stripe, PayPal, Donorbox)
 - **Interactive Forms**: Contact and prayer request forms with backend processing
 - **Dynamic Content**: Saint of the Day module with automated content updates
-- **Admin Dashboard**: Content management panel for events and parish updates  
-- **User System**: Member accounts and authentication with role-based access
 - **Enhanced Scripture**: Advanced scraping for Responsorial Psalms and complete Gospel segments
 - **Database Integration**: Live MongoDB connection for dynamic content management
 - **TypeScript Migration**: Type safety implementation for improved developer experience
 - **Testing Suite**: Comprehensive test coverage with Jest/Vitest
+- **Email Automation**: Automated newsletter generation and distribution system
 
 ## 🎯 Vision
 To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.
