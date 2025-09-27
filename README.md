@@ -23,9 +23,10 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Performance Optimization**: Added code splitting, lazy loading, and optimized component rendering
 - **About Us Transformation**: Complete redesign from volunteer section to comprehensive parish information with side navigation, scrollable content cards, and enhanced UX for long-form content
 
-### Backend Modernization  
-- **Modern Express.js**: Updated with structured error handling, comprehensive middleware, and security best practices
+### Backend Modernization
+- **Express.js Stability**: Optimized with Express 4.x for production stability and compatibility
 - **Enhanced API Design**: Improved routing structure with proper error responses and fallback content
+- **Middleware Optimization**: Fixed Express 5.x compatibility issues affecting API endpoints
 - **Security Improvements**: Added CORS configuration, rate limiting, and input validation
 - **Documentation**: Comprehensive JSDoc comments throughout the codebase
 
@@ -47,6 +48,7 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Scripture Integration**: Backend scraping route pulls daily Gospel excerpt using Cheerio
 ✅ **Cross-Origin Support**: CORS enabled for frontend/backend development
 ✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout
+✅ **API Stability**: Fixed Express compatibility issues - Readings and Events pages now loading correctly
 ✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation
 ✅ **About Us Page**: Comprehensive three-section layout with side navigation, scrollable content cards, and detailed parish information
 ✅ **Admin Dashboard**: Complete content management system with event creation, calendar view, and statistics
@@ -107,3 +109,9 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - All text content supports English/Spanish translation
 - ESLint and Prettier are configured for code quality
 - Comprehensive JSDoc documentation is available throughout the codebase
+
+### Recent Bug Fixes (September 2025)
+- **Express Compatibility**: Resolved Express 5.x compatibility issues causing API failures
+- **API Endpoints**: Fixed "Cannot set property query" error affecting Readings and Events pages
+- **Middleware Stability**: Optimized middleware stack for production reliability
+- **Variable Naming**: Resolved naming conflicts in MongoDB query handling
