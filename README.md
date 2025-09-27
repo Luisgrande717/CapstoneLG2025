@@ -21,6 +21,7 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Professional UI/UX**: Fixed navbar positioning with two-tier layout, consistent styling, and professional capitalization
 - **Mobile-First Design**: Improved responsive design with proper carousel functionality and touch interactions
 - **Performance Optimization**: Added code splitting, lazy loading, and optimized component rendering
+- **About Us Transformation**: Complete redesign from volunteer section to comprehensive parish information with side navigation and section-specific content
 
 ### Backend Modernization  
 - **Modern Express.js**: Updated with structured error handling, comprehensive middleware, and security best practices
@@ -37,16 +38,17 @@ This codebase has been comprehensively updated to 2025 development standards for
 
 
 ## 🚧 Current Features & Progress
-✅ **Core Pages**: Built with modernized React components and comprehensive documentation  
-✅ **Bilingual System**: Complete English/Spanish translation with localStorage persistence  
-✅ **Fixed Navigation**: Professional two-tier navbar with consistent styling and mobile responsiveness  
-✅ **Multi-page Routing**: Implemented with react-router-dom and lazy loading  
-✅ **Event Calendar**: Interactive calendar using react-calendar with dynamic event details  
-✅ **Mobile-Optimized**: Responsive design with proper carousel functionality and touch interactions  
-✅ **Scripture Integration**: Backend scraping route pulls daily Gospel excerpt using Cheerio  
-✅ **Cross-Origin Support**: CORS enabled for frontend/backend development  
-✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout  
-✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation  
+✅ **Core Pages**: Built with modernized React components and comprehensive documentation
+✅ **Bilingual System**: Complete English/Spanish translation with localStorage persistence
+✅ **Fixed Navigation**: Professional two-tier navbar with consistent styling and mobile responsiveness
+✅ **Multi-page Routing**: Implemented with react-router-dom and lazy loading
+✅ **Event Calendar**: Interactive calendar using react-calendar with dynamic event details
+✅ **Mobile-Optimized**: Responsive design with proper carousel functionality and touch interactions
+✅ **Scripture Integration**: Backend scraping route pulls daily Gospel excerpt using Cheerio
+✅ **Cross-Origin Support**: CORS enabled for frontend/backend development
+✅ **Modern Error Handling**: Error boundaries and graceful failure states throughout
+✅ **Code Quality**: ESLint/Prettier configured with comprehensive documentation
+✅ **About Us Page**: Comprehensive three-section layout with side navigation for Our Lady of Fatima, Claretians, and Office Staff information  
 
 ## 🔧 Technical Implementation Highlights
 
@@ -56,11 +58,12 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Styling**: Scoped CSS with mobile-first responsive design principles
 - **Performance**: Code splitting and optimized rendering patterns
 
-### Backend Architecture  
+### Backend Architecture
 - **API Design**: RESTful Express routes with structured error handling
 - **Web Scraping**: Axios & Cheerio integration for USCCB daily Gospel extraction
 - **Security**: CORS configuration, input validation, and rate limiting
 - **Modularity**: Clean routing structure with separated concerns
+- **API Endpoints**: Updated for production deployment with proper localhost configurations
 
 ### Mobile Responsiveness
 - **Navigation**: Hamburger menu with backdrop blur and smooth animations
@@ -93,7 +96,7 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 3. Install backend dependencies: `cd backend && npm install`
 4. Start development servers:
    - Frontend: `npm run dev` (runs on http://localhost:5173)
-   - Backend: `npm start` (runs on http://localhost:3000)
+   - Backend: `npm start` (runs on http://localhost:8080)
 
 ### Development Notes
 - The site is fully responsive and optimized for mobile devices
