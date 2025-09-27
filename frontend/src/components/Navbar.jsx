@@ -26,7 +26,7 @@ const NAV_ITEMS = [
   { path: '/events', key: 'events' },
   { path: '/readings', key: 'readings' },
   { path: '/sacraments', key: 'sacraments' },
-  { path: '/volunteer', key: 'volunteer' },
+  { path: '/about-us', key: 'aboutUs' },
   { path: '/donate', key: 'donate' },
 ];
 
@@ -45,7 +45,7 @@ const Navbar = () => {
       const token = localStorage.getItem('memberToken');
       if (token) {
         try {
-          const response = await fetch('/api/members/profile', {
+          const response = await fetch('http://localhost:8080/api/members/profile', {
             headers: { Authorization: `Bearer ${token}` }
           });
           if (response.ok) {

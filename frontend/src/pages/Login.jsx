@@ -55,7 +55,7 @@ const Login = () => {
    */
   const verifyToken = async (token) => {
     try {
-      const response = await axios.get('/api/members/profile', {
+      const response = await axios.get('http://localhost:8080/api/members/profile', {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -171,7 +171,7 @@ const Login = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/api/members/login', loginData);
+      const response = await axios.post('http://localhost:8080/api/members/login', loginData);
       const { token, member: memberData } = response.data.data;
       
       // Store token
@@ -213,7 +213,7 @@ const Login = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/api/members/register', registerData);
+      const response = await axios.post('http://localhost:8080/api/members/register', registerData);
       const { token, member: memberData } = response.data.data;
       
       // Store token

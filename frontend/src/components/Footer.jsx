@@ -37,7 +37,7 @@ const Footer = () => {
     setIsError(false);
 
     try {
-      const response = await axios.post('/api/subscriptions/subscribe', {
+      const response = await axios.post('http://localhost:8080/api/subscriptions/subscribe', {
         email,
         preferredLanguage: language,
         source: 'footer'

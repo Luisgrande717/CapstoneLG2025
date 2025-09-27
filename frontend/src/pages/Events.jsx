@@ -31,7 +31,7 @@ const Events = () => {
         setIsLoading(true);
         setError(null);
         
-        const response = await axios.get('/api/events');
+        const response = await axios.get('http://localhost:8080/api/events');
         const events = response.data.data.events || [];
         
         setAllEvents(events);

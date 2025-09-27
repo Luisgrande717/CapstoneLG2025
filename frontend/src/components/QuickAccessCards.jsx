@@ -30,12 +30,12 @@ const QuickAccessCards = () => {
       fallbackDesc: 'Learn about Baptism, Communion, and Confirmation.',
     },
     {
-      titleKey: 'volunteer',
-      descriptionKey: 'volunteerDesc',
+      titleKey: 'aboutUs',
+      descriptionKey: 'aboutUsDesc',
       icon: VolunteerIcon,
-      link: '/volunteer',
-      fallbackTitle: 'Volunteer',
-      fallbackDesc: 'Get involved and make a difference.',
+      link: '/about-us',
+      fallbackTitle: 'About Us',
+      fallbackDesc: 'Learn about our diverse community and faith.',
     },
     {
       titleKey: 'dailyReadingsCard',

@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import './EventManager.css';
 
@@ -22,6 +23,7 @@ const EventManager = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
   const { t, language } = useLanguage();
+  const { token } = useAuth();
 
   const [formData, setFormData] = useState({
     title: { en: '', es: '' },
@@ -57,7 +59,9 @@ const EventManager = () => {
   const fetchEvents = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('/api/events');
+      const response = await axios.get('http://localhost:8080/api/events', {
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
+      });
       setEvents(response.data.data.events || []);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -151,13 +155,17 @@ const EventManager = () => {
 
       if (editingEvent) {
         // Update existing event
-        const response = await axios.put(`/api/events/${editingEvent._id}`, submitData);
+        const response = await axios.put(`http://localhost:8080/api/events/${editingEvent._id}`, submitData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setEvents(prev => prev.map(event => 
           event._id === editingEvent._id ? response.data.data.event : event
         ));
       } else {
         // Create new event
-        const response = await axios.post('/api/events', submitData);
+        const response = await axios.post('http://localhost:8080/api/events', submitData, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
         setEvents(prev => [response.data.data.event, ...prev]);
       }
 
@@ -204,7 +212,9 @@ const EventManager = () => {
     }
 
     try {
-      await axios.delete(`/api/events/${eventId}`);
+      await axios.delete(`http://localhost:8080/api/events/${eventId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       setEvents(prev => prev.filter(event => event._id !== eventId));
       alert(t('admin.events.deleted', { fallback: 'Event deleted successfully!' }));
     } catch (error) {
@@ -218,8 +228,10 @@ const EventManager = () => {
    */
   const togglePublished = async (event) => {
     try {
-      const response = await axios.put(`/api/events/${event._id}/publish`, {
+      const response = await axios.put(`http://localhost:8080/api/events/${event._id}/publish`, {
         published: !event.published
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
       });
       
       setEvents(prev => prev.map(e => 

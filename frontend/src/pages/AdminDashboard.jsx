@@ -62,10 +62,10 @@ const AdminDashboard = () => {
 
       // Fetch all statistics in parallel
       const [eventsResponse, membersResponse, subscriptionsResponse, allEventsResponse] = await Promise.all([
-        authAxios.get('/api/events/stats'),
-        authAxios.get('/api/members/stats'),
-        axios.get('/api/subscriptions/stats'), // Public endpoint
-        authAxios.get('/api/events?limit=100') // Get all events for calendar
+        authAxios.get('http://localhost:8080/api/events/stats'),
+        authAxios.get('http://localhost:8080/api/members/stats'),
+        axios.get('http://localhost:8080/api/subscriptions/stats'), // Public endpoint
+        authAxios.get('http://localhost:8080/api/events?limit=100') // Get all events for calendar
       ]);
 
       if (eventsResponse.data.success) {
