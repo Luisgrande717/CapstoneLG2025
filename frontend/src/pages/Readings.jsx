@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import './Readings.css';
 
 const Readings = () => {
   const [reading, setReading] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     fetch('http://localhost:8080/api/readings/today')
@@ -37,19 +39,19 @@ const Readings = () => {
   return (
     <section className="readings-page">
       <div className="readings-card">
-        <h2>📖 Daily Reading Snapshot</h2>
+        <h2>📖 {t('dailyReadings')}</h2>
 
         {loading ? (
-          <p>⏳ Loading today’s scripture...</p>
+          <p>⏳ {t('loading')}</p>
         ) : error ? (
-          <p>⚠️ Unable to load today’s reading. Please check back later.</p>
+          <p>⚠️ {t('error')}</p>
         ) : reading ? (
           <>
             <h3>{reading.title}</h3>
             <p style={{ whiteSpace: 'pre-line' }}>{reading.excerpt}</p>
 
             <a href={reading.link} target="_blank" rel="noopener noreferrer">
-              <button className="read-more-button">Read Full Passage at USCCB</button>
+              <button className="read-more-button">{t('readMore')}</button>
             </a>
           </>
         ) : null}
