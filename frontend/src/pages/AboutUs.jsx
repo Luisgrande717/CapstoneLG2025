@@ -22,12 +22,12 @@ const AboutUs = () => {
             title: t('aboutUsPage.ourLadyOfFatima.aboutParish'),
             text: (
               <>
-                <p>{t('aboutUsPage.ourLadyOfFatima.aboutParishText')}</p>
-                <p>{t('aboutUsPage.ourLadyOfFatima.parishHistory2')}</p>
-                <p>{t('aboutUsPage.ourLadyOfFatima.parishHistory3')}</p>
-                <p>{t('aboutUsPage.ourLadyOfFatima.parishHistory4')}</p>
-                <p>{t('aboutUsPage.ourLadyOfFatima.parishHistory5')}</p>
-                <p>{t('aboutUsPage.ourLadyOfFatima.currentParish')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.historyIntro')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.parishGrowth')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.missionaryCatechists')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.challengesAndGrowth')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.parishDivision')}</p>
+                <p>{t('aboutUsPage.ourLadyOfFatima.presentDay')}</p>
                 <p>{t('aboutUsPage.ourLadyOfFatima.parishMotto')}</p>
               </>
             )
