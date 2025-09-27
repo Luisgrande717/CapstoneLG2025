@@ -115,3 +115,6 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - **API Endpoints**: Fixed "Cannot set property query" error affecting Readings and Events pages
 - **Middleware Stability**: Optimized middleware stack for production reliability
 - **Variable Naming**: Resolved naming conflicts in MongoDB query handling
+- **Translation Key Display**: Fixed AboutUs page showing translation keys instead of actual content
+- **Language Context**: Resolved missing language variable in useLanguage hook destructuring
+- **Bilingual Content**: Ensured proper language switching functionality across all AboutUs sections
