@@ -51,8 +51,7 @@
   status = 404
 
 # Environment-specific settings
-[context.production]
-  environment = { NODE_ENV = "production" }
+# Note: Not setting NODE_ENV during build to ensure devDependencies are installed
 
 [context.deploy-preview]
   command = "npm run build:clean"
