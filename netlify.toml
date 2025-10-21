@@ -1,10 +1,12 @@
 # Netlify Configuration for Our Lady of Fatima Parish Website
 
 [build]
+  # Base directory is frontend
+  base = "frontend"
   # Build command for the frontend
-  command = "cd frontend && npm install && npm run build"
+  command = "npm install && npm run build"
   # Directory to publish (Vite outputs to dist by default)
-  publish = "frontend/dist"
+  publish = "dist"
   # Environment variables for build
   environment = { NODE_VERSION = "18" }
 
@@ -53,7 +55,7 @@
   environment = { NODE_ENV = "production" }
 
 [context.deploy-preview]
-  command = "cd frontend && npm install && npm run build"
+  command = "npm install && npm run build"
 
 [context.branch-deploy]
-  command = "cd frontend && npm install && npm run build"
+  command = "npm install && npm run build"
