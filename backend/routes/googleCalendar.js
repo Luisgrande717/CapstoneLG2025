@@ -19,23 +19,31 @@ router.get('/auth-url', authenticate, requireAdmin, async (req, res) => {
 });
 
 // Handle Google Calendar OAuth callback
-router.get('/oauth2callback', authenticate, requireAdmin, async (req, res) => {
+router.get('/oauth2callback', async (req, res) => {
   try {
-    const { code } = req.query;
+    const { code, error } = req.query;
+
+    if (error) {
+      // User denied access or error occurred
+      return res.redirect('http://localhost:5175/admin?google_auth=failed');
+    }
+
+    if (!code) {
+      return res.status(400).json({
+        success: false,
+        error: 'No authorization code provided'
+      });
+    }
+
     const tokens = await googleCalendarService.getTokens(code);
-    
-    // Store tokens securely in your database associated with the user
-    // You'll need to implement this based on your user model
-    
-    res.json({ 
-      success: true, 
-      message: 'Successfully connected to Google Calendar' 
-    });
+
+    // Store tokens in session or return to frontend
+    // For now, redirect back to admin with success
+    res.redirect(`http://localhost:5175/admin?google_auth=success&tokens=${encodeURIComponent(JSON.stringify(tokens))}`);
+
   } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to complete OAuth process' 
-    });
+    console.error('OAuth callback error:', error);
+    res.redirect('http://localhost:5175/admin?google_auth=failed');
   }
 });
 
