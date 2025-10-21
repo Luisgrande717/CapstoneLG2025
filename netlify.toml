@@ -4,11 +4,11 @@
   # Base directory is frontend
   base = "frontend"
   # Build command for the frontend
-  command = "npm ci && npm run build"
+  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
   # Directory to publish (Vite outputs to dist by default)
   publish = "dist"
   # Environment variables for build
-  environment = { NODE_VERSION = "20" }
+  environment = { NODE_VERSION = "20.19.0" }
 
 # Redirect rules for SPA (Single Page Application)
 [[redirects]]
@@ -55,7 +55,7 @@
   environment = { NODE_ENV = "production" }
 
 [context.deploy-preview]
-  command = "npm ci && npm run build"
+  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
 
 [context.branch-deploy]
-  command = "npm ci && npm run build"
+  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
