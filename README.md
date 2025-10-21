@@ -54,7 +54,7 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Admin Dashboard**: Complete content management system with event creation, calendar view, and statistics
 ✅ **Email Subscriptions**: Newsletter signup system with language preferences and subscription management
 ✅ **Admin Login Button**: User icon in navbar for easy admin access with responsive styling
-✅ **Google Calendar Integration**: OAuth2 authentication with improved error handling and credential validation
+✅ **Google Calendar Sync**: Full OAuth2 integration with bidirectional event import/export, token storage, and one-click sync button in admin dashboard
 
 ## 🔧 Technical Implementation Highlights
 
@@ -119,6 +119,10 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - **Enhanced Logging**: Added comprehensive credential validation logging for Google Calendar
 - **React Hooks Compliance**: Fixed React hooks exhaustive-deps warnings in AuthContext
 - **Navigation Improvements**: Replaced Navigate component with useNavigate hook for better UX
+- **Google Calendar Sync Implementation**: Added complete event synchronization with JWT-signed OAuth state tokens
+- **Token Persistence**: Created GoogleCalendarToken MongoDB model for secure OAuth token storage
+- **Event Import/Export**: Implemented /sync and /export endpoints with duplicate prevention logic
+- **Admin Dashboard Sync Button**: One-click Google Calendar sync with success feedback and event counter
 
 ### Bug Fixes (September 2025)
 - **Express Compatibility**: Resolved Express 5.x compatibility issues causing API failures
