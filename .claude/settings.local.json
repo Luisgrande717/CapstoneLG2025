@@ -16,7 +16,9 @@
       "Bash(pkill:*)",
       "Bash(netstat:*)",
       "Bash(findstr:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(node scripts/createAdmin.js)",
+      "Bash(node scripts/resetAdminPassword.js)"
     ],
     "deny": [],
     "ask": []

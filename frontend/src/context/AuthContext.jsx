@@ -24,19 +24,22 @@ axios.defaults.baseURL = API_URL;
  */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   /**
    * Set authentication token in axios headers and localStorage
    */
-  const setAuthToken = useCallback((token) => {
-    if (token) {
-      localStorage.setItem('adminToken', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  const setAuthToken = useCallback((tokenValue) => {
+    if (tokenValue) {
+      localStorage.setItem('adminToken', tokenValue);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${tokenValue}`;
+      setToken(tokenValue);
     } else {
       localStorage.removeItem('adminToken');
       delete axios.defaults.headers.common['Authorization'];
+      setToken(null);
     }
   }, []);
 
@@ -199,6 +202,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    token,
     isLoading,
     isAuthenticated,
     login,

@@ -90,7 +90,7 @@ const createApp = () => {
   // Stricter rate limiting for auth endpoints
   const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // Limit each IP to 5 authentication requests per windowMs
+    max: 20, // Limit each IP to 20 authentication requests per windowMs (increased for development)
     message: {
       success: false,
       error: 'Too many authentication attempts, please try again later.',
