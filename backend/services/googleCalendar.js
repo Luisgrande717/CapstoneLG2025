@@ -3,11 +3,33 @@ import { OAuth2Client } from 'google-auth-library';
 
 class GoogleCalendarService {
   constructor() {
-    this.oauth2Client = new OAuth2Client(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
+    this._oauth2Client = null;
+  }
+
+  // Lazy initialization of OAuth2 client to ensure env vars are loaded
+  get oauth2Client() {
+    if (!this._oauth2Client) {
+      const clientId = process.env.GOOGLE_CLIENT_ID;
+      const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+      const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
+      console.log('🔧 Initializing Google Calendar OAuth2 Client');
+      console.log('Client ID:', clientId ? '✓ Set' : '✗ Missing');
+      console.log('Client Secret:', clientSecret ? '✓ Set' : '✗ Missing');
+      console.log('Redirect URI:', redirectUri || '✗ Missing');
+
+      if (!clientId || !clientSecret || !redirectUri) {
+        console.error('❌ Missing required Google OAuth credentials!');
+        throw new Error('Missing Google OAuth credentials in environment variables');
+      }
+
+      this._oauth2Client = new OAuth2Client(
+        clientId,
+        clientSecret,
+        redirectUri
+      );
+    }
+    return this._oauth2Client;
   }
 
   setCredentials(tokens) {
@@ -87,10 +109,19 @@ class GoogleCalendarService {
       'https://www.googleapis.com/auth/calendar.readonly'
     ];
 
-    return this.oauth2Client.generateAuthUrl({
+    console.log('🔐 Generating Google OAuth URL');
+    console.log('OAuth2Client config:', {
+      clientId: this.oauth2Client._clientId,
+      redirectUri: this.oauth2Client.redirectUri
+    });
+
+    const authUrl = this.oauth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: scopes,
     });
+
+    console.log('Generated Auth URL:', authUrl);
+    return authUrl;
   }
 
   async getTokens(code) {

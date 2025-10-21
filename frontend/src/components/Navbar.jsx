@@ -121,19 +121,44 @@ const Navbar = () => {
             <span className="parish-name">{t('parishName', { fallback: 'Our Lady of Fatima' })}</span>
           </Link>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className={`hamburger ${isOpen ? 'active' : ''}`}
-            onClick={toggleMobileMenu}
-            onKeyDown={handleKeyDown}
-            aria-label={t('toggleMenu', { fallback: 'Toggle navigation menu' })}
-            aria-expanded={isOpen}
-            aria-controls="navigation-menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+          <div className="navbar-header-right">
+            {/* Admin Login Button */}
+            <Link
+              to="/admin/login"
+              className="admin-login-btn"
+              aria-label="Admin Login"
+              title="Admin Login"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className={`hamburger ${isOpen ? 'active' : ''}`}
+              onClick={toggleMobileMenu}
+              onKeyDown={handleKeyDown}
+              aria-label={t('toggleMenu', { fallback: 'Toggle navigation menu' })}
+              aria-expanded={isOpen}
+              aria-controls="navigation-menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </div>
 
         {/* Navigation Menu - Bottom Section */}

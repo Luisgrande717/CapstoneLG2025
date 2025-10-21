@@ -9,7 +9,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import './AdminLogin.css';
@@ -21,16 +21,19 @@ const AdminLogin = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const { login, isAuthenticated, isLoading } = useAuth();
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const location = useLocation();
 
   // Redirect if already authenticated
-  if (isAuthenticated && !isLoading) {
-    const from = location.state?.from?.pathname || '/admin';
-    return <Navigate to={from} replace />;
-  }
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      const from = location.state?.from?.pathname || '/admin';
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate, location]);
 
   /**
    * Handle input changes

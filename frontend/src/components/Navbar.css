@@ -50,6 +50,13 @@
   margin-bottom: 10px;
 }
 
+/* Right side container for admin button and hamburger */
+.navbar-header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 /* Logo Container */
 .logo {
   display: flex;
@@ -131,6 +138,30 @@
   background-color: #e0b36d;
 }
 
+
+/* Admin Login Button */
+.admin-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f0c987;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.admin-login-btn:hover {
+  background-color: rgba(240, 201, 135, 0.15);
+  transform: translateY(-1px);
+  color: #e0b36d;
+}
+
+.admin-login-btn svg {
+  display: block;
+}
 
 /* Language Toggle Container */
 .lang-item {
@@ -233,6 +264,19 @@
     margin-bottom: 0;
   }
 
+  .navbar-header-right {
+    gap: 12px;
+  }
+
+  .admin-login-btn {
+    padding: 6px;
+  }
+
+  .admin-login-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
   .nav-links {
     flex-direction: column;
     position: fixed;
@@ -300,6 +344,19 @@
 @media screen and (max-width: 480px) {
   .navbar {
     padding: 10px 12px;
+  }
+
+  .navbar-header-right {
+    gap: 8px;
+  }
+
+  .admin-login-btn {
+    padding: 5px;
+  }
+
+  .admin-login-btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   .logo {

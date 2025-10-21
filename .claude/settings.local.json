@@ -18,7 +18,10 @@
       "Bash(findstr:*)",
       "Bash(git commit:*)",
       "Bash(node scripts/createAdmin.js)",
-      "Bash(node scripts/resetAdminPassword.js)"
+      "Bash(node scripts/resetAdminPassword.js)",
+      "Bash(start http://localhost:5173/admin)",
+      "Bash(start http://localhost:5173/)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []

@@ -163,7 +163,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       const token = localStorage.getItem('adminToken');
-      
+
       if (token) {
         setAuthToken(token);
         try {
@@ -173,12 +173,13 @@ export const AuthProvider = ({ children }) => {
           logout();
         }
       }
-      
+
       setIsLoading(false);
     };
 
     initAuth();
-  }, [setAuthToken, getCurrentUser, logout]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Setup axios interceptors for automatic token handling
