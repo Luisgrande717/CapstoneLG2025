@@ -29,6 +29,7 @@ import readingsRoute from './routes/readings.js';
 import eventsRoute from './routes/events.js';
 import authRoute from './routes/auth.js';
 import subscriptionsRoute from './routes/subscriptions.js';
+import googleCalendarRoute from './routes/googleCalendar.js';
 
 // Database connection
 import connectDB from './config/db.js';
@@ -214,6 +215,7 @@ const mountRoutes = (app) => {
   app.use('/api/events', eventsRoute);
   app.use('/api/auth', authRoute);
   app.use('/api/subscriptions', subscriptionsRoute);
+  app.use('/api/google-calendar', googleCalendarRoute);
 
   // Root endpoint
   app.get('/', (req, res) => {

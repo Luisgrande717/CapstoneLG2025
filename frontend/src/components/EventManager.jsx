@@ -21,6 +21,8 @@ const EventManager = () => {
   const [editingEvent, setEditingEvent] = useState(null);
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isGoogleConnected, setIsGoogleConnected] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
   
   const { t, language } = useLanguage();
   const { token } = useAuth();
@@ -67,6 +69,54 @@ const EventManager = () => {
       console.error('Error fetching events:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const connectGoogleCalendar = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/google-calendar/auth-url', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      window.location.href = response.data.data.url;
+    } catch (error) {
+      console.error('Error getting Google Calendar auth URL:', error);
+      alert(t('admin.events.googleAuthError', { fallback: 'Error connecting to Google Calendar' }));
+    }
+  };
+
+  const importFromGoogle = async () => {
+    try {
+      setIsImporting(true);
+      const response = await axios.post('http://localhost:8080/api/google-calendar/import', {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setEvents(prev => [...response.data.data.events, ...prev]);
+      alert(t('admin.events.googleImportSuccess', { 
+        fallback: `Successfully imported ${response.data.data.events.length} events` 
+      }));
+    } catch (error) {
+      console.error('Error importing from Google Calendar:', error);
+      alert(t('admin.events.googleImportError', { 
+        fallback: 'Error importing events from Google Calendar' 
+      }));
+    } finally {
+      setIsImporting(false);
+    }
+  };
+
+  const exportToGoogle = async (eventId) => {
+    try {
+      const response = await axios.post(`http://localhost:8080/api/google-calendar/export/${eventId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      alert(t('admin.events.googleExportSuccess', { 
+        fallback: 'Event successfully exported to Google Calendar' 
+      }));
+    } catch (error) {
+      console.error('Error exporting to Google Calendar:', error);
+      alert(t('admin.events.googleExportError', { 
+        fallback: 'Error exporting event to Google Calendar' 
+      }));
     }
   };
 
@@ -481,12 +531,36 @@ const EventManager = () => {
     <div className="event-manager">
       <div className="manager-header">
         <h2>{t('admin.events.title', { fallback: 'Event Management' })}</h2>
-        <button 
-          className="btn-create"
-          onClick={() => setShowCreateForm(true)}
-        >
-          + {t('admin.events.createNew', { fallback: 'Create Event' })}
-        </button>
+        <div className="header-actions">
+          <button 
+            className="btn-google"
+            onClick={connectGoogleCalendar}
+            disabled={isGoogleConnected}
+          >
+            {isGoogleConnected 
+              ? t('admin.events.googleConnected', { fallback: 'Connected to Google Calendar' })
+              : t('admin.events.googleConnect', { fallback: 'Connect Google Calendar' })
+            }
+          </button>
+          {isGoogleConnected && (
+            <button 
+              className="btn-import"
+              onClick={importFromGoogle}
+              disabled={isImporting}
+            >
+              {isImporting 
+                ? t('admin.events.importing', { fallback: 'Importing...' })
+                : t('admin.events.import', { fallback: 'Import from Google' })
+              }
+            </button>
+          )}
+          <button 
+            className="btn-create"
+            onClick={() => setShowCreateForm(true)}
+          >
+            + {t('admin.events.createNew', { fallback: 'Create Event' })}
+          </button>
+        </div>
       </div>
 
       <div className="manager-controls">
@@ -554,6 +628,14 @@ const EventManager = () => {
               >
                 {event.published ? 'Unpublish' : 'Publish'}
               </button>
+              {isGoogleConnected && !event.googleCalendarEventId && (
+                <button 
+                  className="btn-export"
+                  onClick={() => exportToGoogle(event._id)}
+                >
+                  Export to Google
+                </button>
+              )}
               <button 
                 className="btn-delete"
                 onClick={() => handleDelete(event._id)}

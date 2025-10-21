@@ -1,12 +1,12 @@
 import express from 'express';
-import { authenticateJWT } from '../middleware/auth.js';
+import { authenticate, requireAdmin } from '../middleware/auth.js';
 import googleCalendarService from '../services/googleCalendar.js';
 import Event from '../models/Event.js';
 
 const router = express.Router();
 
 // Get Google Calendar authorization URL
-router.get('/auth-url', authenticateJWT, async (req, res) => {
+router.get('/auth-url', authenticate, requireAdmin, async (req, res) => {
   try {
     const authUrl = googleCalendarService.getAuthUrl();
     res.json({ success: true, data: { url: authUrl } });
@@ -19,7 +19,7 @@ router.get('/auth-url', authenticateJWT, async (req, res) => {
 });
 
 // Handle Google Calendar OAuth callback
-router.get('/oauth2callback', authenticateJWT, async (req, res) => {
+router.get('/oauth2callback', authenticate, requireAdmin, async (req, res) => {
   try {
     const { code } = req.query;
     const tokens = await googleCalendarService.getTokens(code);
@@ -40,7 +40,7 @@ router.get('/oauth2callback', authenticateJWT, async (req, res) => {
 });
 
 // Import events from Google Calendar
-router.post('/import', authenticateJWT, async (req, res) => {
+router.post('/import', authenticate, requireAdmin, async (req, res) => {
   try {
     // You'll need to implement token retrieval from your database
     const userTokens = {}; // Get tokens for the current user
@@ -74,7 +74,7 @@ router.post('/import', authenticateJWT, async (req, res) => {
 });
 
 // Export events to Google Calendar
-router.post('/export/:eventId', authenticateJWT, async (req, res) => {
+router.post('/export/:eventId', authenticate, requireAdmin, async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId);
     if (!event) {

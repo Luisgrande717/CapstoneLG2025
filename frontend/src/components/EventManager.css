@@ -17,6 +17,74 @@
   margin-bottom: 2rem;
 }
 
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-google {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-google:disabled {
+  background-color: #a4c2f4;
+  cursor: not-allowed;
+}
+
+.btn-google:hover:not(:disabled) {
+  background-color: #357abd;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+}
+
+.btn-import {
+  background-color: #34a853;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-import:disabled {
+  background-color: #8bc34a;
+  cursor: wait;
+}
+
+.btn-import:hover:not(:disabled) {
+  background-color: #2d8745;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 168, 83, 0.3);
+}
+
+.btn-export {
+  background-color: #fbbc05;
+  color: #312e2b;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-export:hover {
+  background-color: #f9a825;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(251, 188, 5, 0.3);
+}
+
 .manager-header h2 {
   color: #312e2b;
   margin: 0;
