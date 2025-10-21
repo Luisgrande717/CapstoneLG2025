@@ -3,8 +3,8 @@
 [build]
   # Base directory is frontend
   base = "frontend"
-  # Build command for the frontend
-  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
+  # Build command using the build:clean script
+  command = "npm run build:clean"
   # Directory to publish (Vite outputs to dist by default)
   publish = "dist"
   # Environment variables for build
@@ -55,7 +55,7 @@
   environment = { NODE_ENV = "production" }
 
 [context.deploy-preview]
-  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
+  command = "npm run build:clean"
 
 [context.branch-deploy]
-  command = "rm -rf node_modules && npm install --legacy-peer-deps && npm run build"
+  command = "npm run build:clean"
