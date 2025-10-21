@@ -46,7 +46,7 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       setIsLoading(true);
-      
+
       // Create axios instance with auth headers
       const authAxios = axios.create({
         headers: {
@@ -125,6 +125,7 @@ const AdminDashboard = () => {
     }
   };
 
+
   /**
    * Render navigation tabs
    */
@@ -200,24 +201,42 @@ const AdminDashboard = () => {
         <div className="welcome-header">
           <div className="welcome-text">
             <h2>
-              {t('admin.dashboard.welcome', { 
+              {t('admin.dashboard.welcome', {
                 fallback: 'Welcome back, {{name}}!',
                 name: user?.firstName || 'Admin'
               })}
             </h2>
             <p>
-              {t('admin.dashboard.subtitle', { 
-                fallback: 'Manage parish events and content from your dashboard.' 
+              {t('admin.dashboard.subtitle', {
+                fallback: 'Manage parish events and content from your dashboard.'
               })}
             </p>
           </div>
-          <button 
+          <button
             className="refresh-button"
             onClick={fetchStats}
             disabled={isLoading}
             title={t('admin.dashboard.refresh', { fallback: 'Refresh Data' })}
           >
             {isLoading ? '⏳' : '🔄'} {t('admin.dashboard.refresh', { fallback: 'Refresh' })}
+          </button>
+          <button
+            className="refresh-button"
+            onClick={async () => {
+              try {
+                const res = await axios.post('http://localhost:8080/api/google-calendar/sync', {},
+                  { headers: { 'Authorization': 'Bearer ' + token } });
+                if (res.data.success) {
+                  alert('Synced ' + res.data.data.imported + ' events!');
+                  fetchStats();
+                }
+              } catch (err) {
+                alert('Failed to sync. Connect Google Calendar first.');
+              }
+            }}
+            title="Sync Google Calendar"
+          >
+            📅 Sync Google Calendar
           </button>
         </div>
       </div>
@@ -234,19 +253,19 @@ const AdminDashboard = () => {
       <div className="quick-actions">
         <h3>{t('admin.dashboard.quickActions', { fallback: 'Quick Actions' })}</h3>
         <div className="action-buttons">
-          <button 
+          <button
             className="action-btn primary"
             onClick={() => setActiveTab('events')}
           >
             📝 {t('admin.dashboard.actions.createEvent', { fallback: 'Create Event' })}
           </button>
-          <button 
+          <button
             className="action-btn secondary"
             onClick={() => setActiveTab('events')}
           >
             📋 {t('admin.dashboard.actions.manageEvents', { fallback: 'Manage Events' })}
           </button>
-          <button 
+          <button
             className="action-btn secondary"
             onClick={() => setActiveTab('calendar')}
           >
@@ -323,7 +342,7 @@ const AdminDashboard = () => {
       <div className="calendar-content">
         <div className="calendar-header">
           <h2>{t('admin.dashboard.calendar.title', { fallback: 'Event Calendar' })}</h2>
-          <button 
+          <button
             className="refresh-button"
             onClick={fetchStats}
             disabled={isLoading}
@@ -332,7 +351,7 @@ const AdminDashboard = () => {
             {isLoading ? '⏳' : '🔄'} {t('admin.dashboard.refresh', { fallback: 'Refresh' })}
           </button>
         </div>
-        
+
         <div className="calendar-section">
           <div className="calendar-wrapper">
             <Calendar
@@ -352,7 +371,7 @@ const AdminDashboard = () => {
             <div className="selected-date">
               <h3>{t('admin.dashboard.calendar.selectedDate', { fallback: 'Selected Date' })}</h3>
               <p className="date-display">
-                {calendarDate.toLocaleDateString('en-US', { 
+                {calendarDate.toLocaleDateString('en-US', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
@@ -375,8 +394,8 @@ const AdminDashboard = () => {
                       </div>
                       <div className="event-location">📍 {event.location}</div>
                       <div className={`event-status ${event.published ? 'published' : 'draft'}`}>
-                        {event.published ? 
-                          t('admin.dashboard.calendar.published', { fallback: 'Published' }) : 
+                        {event.published ?
+                          t('admin.dashboard.calendar.published', { fallback: 'Published' }) :
                           t('admin.dashboard.calendar.draft', { fallback: 'Draft' })
                         }
                       </div>
@@ -433,8 +452,8 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <header className="admin-header">
         <div className="header-left">
-          <img 
-            src="/assets/church-logo2.png" 
+          <img
+            src="/assets/church-logo2.png"
             alt={t('logoAlt', { fallback: 'Parish Logo' })}
             className="header-logo"
           />
@@ -444,7 +463,7 @@ const AdminDashboard = () => {
           <span className="user-name">
             {user?.firstName} {user?.lastName}
           </span>
-          <button 
+          <button
             className="logout-btn"
             onClick={handleLogout}
             title={t('admin.dashboard.logout.title', { fallback: 'Logout' })}
@@ -458,7 +477,7 @@ const AdminDashboard = () => {
         <aside className="admin-sidebar">
           {renderNavigation()}
         </aside>
-        
+
         <main className="admin-main">
           {renderContent()}
         </main>

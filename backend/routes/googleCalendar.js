@@ -1,117 +1,134 @@
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import { authenticate, requireAdmin } from '../middleware/auth.js';
 import googleCalendarService from '../services/googleCalendar.js';
 import Event from '../models/Event.js';
+import GoogleCalendarToken from '../models/GoogleCalendarToken.js';
 
 const router = express.Router();
 
-// Get Google Calendar authorization URL
 router.get('/auth-url', authenticate, requireAdmin, async (req, res) => {
   try {
-    const authUrl = googleCalendarService.getAuthUrl();
+    const state = jwt.sign({ userId: req.user._id }, process.env.JWT_SECRET || 'fatima-secret', { expiresIn: '10m' });
+    const authUrl = googleCalendarService.getAuthUrl() + `&state=${state}`;
     res.json({ success: true, data: { url: authUrl } });
   } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to generate authorization URL' 
-    });
+    console.error('Error generating auth URL:', error);
+    res.status(500).json({ success: false, error: 'Failed to generate authorization URL' });
   }
 });
 
-// Handle Google Calendar OAuth callback
 router.get('/oauth2callback', async (req, res) => {
   try {
-    const { code, error } = req.query;
-
-    if (error) {
-      // User denied access or error occurred
-      return res.redirect('http://localhost:5175/admin?google_auth=failed');
+    const { code, error, state } = req.query;
+    if (error || !code) {
+      return res.redirect('http://localhost:5173/admin?google_auth=failed');
     }
 
-    if (!code) {
-      return res.status(400).json({
-        success: false,
-        error: 'No authorization code provided'
-      });
+    let userId;
+    try {
+      const decoded = jwt.verify(state, process.env.JWT_SECRET || 'fatima-secret');
+      userId = decoded.userId;
+    } catch (err) {
+      return res.redirect('http://localhost:5173/admin?google_auth=failed');
     }
 
     const tokens = await googleCalendarService.getTokens(code);
+    const expiryDate = new Date(Date.now() + 3600000);
 
-    // Store tokens in session or return to frontend
-    // For now, redirect back to admin with success
-    res.redirect(`http://localhost:5175/admin?google_auth=success&tokens=${encodeURIComponent(JSON.stringify(tokens))}`);
-
-  } catch (error) {
-    console.error('OAuth callback error:', error);
-    res.redirect('http://localhost:5175/admin?google_auth=failed');
-  }
-});
-
-// Import events from Google Calendar
-router.post('/import', authenticate, requireAdmin, async (req, res) => {
-  try {
-    // You'll need to implement token retrieval from your database
-    const userTokens = {}; // Get tokens for the current user
-    googleCalendarService.setCredentials(userTokens);
-
-    const events = await googleCalendarService.listEvents();
-    
-    // Save events to your database
-    const savedEvents = await Promise.all(
-      events.map(async (event) => {
-        const newEvent = new Event({
-          ...event,
-          createdBy: req.user._id,
-          published: true
-        });
-        return newEvent.save();
-      })
+    await GoogleCalendarToken.findOneAndUpdate(
+      { userId },
+      {
+        userId,
+        accessToken: tokens.access_token,
+        refreshToken: tokens.refresh_token,
+        tokenType: tokens.token_type || 'Bearer',
+        expiryDate,
+        scope: tokens.scope
+      },
+      { upsert: true, new: true }
     );
 
-    res.json({ 
-      success: true, 
-      data: { events: savedEvents },
-      message: `Successfully imported ${savedEvents.length} events`
-    });
+    console.log('Tokens stored for user:', userId);
+    res.redirect('http://localhost:5173/admin?google_auth=success');
   } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to import events from Google Calendar' 
-    });
+    console.error('OAuth callback error:', error);
+    res.redirect('http://localhost:5173/admin?google_auth=failed');
   }
 });
 
-// Export events to Google Calendar
+router.post('/sync', authenticate, requireAdmin, async (req, res) => {
+  try {
+    const tokenData = await GoogleCalendarToken.findOne({ userId: req.user._id });
+    if (!tokenData) {
+      return res.status(400).json({ success: false, error: 'Not connected to Google Calendar' });
+    }
+
+    googleCalendarService.setCredentials({
+      access_token: tokenData.accessToken,
+      refresh_token: tokenData.refreshToken,
+      token_type: tokenData.tokenType,
+      expiry_date: tokenData.expiryDate.getTime()
+    });
+
+    console.log('Fetching events from Google Calendar...');
+    const googleEvents = await googleCalendarService.listEvents();
+    console.log('Found', googleEvents.length, 'events');
+
+    const savedEvents = [];
+
+    for (const eventData of googleEvents) {
+      const existing = await Event.findOne({ googleCalendarEventId: eventData.googleCalendarEventId });
+      if (existing) {
+        Object.assign(existing, eventData);
+        await existing.save();
+        savedEvents.push(existing);
+      } else {
+        const newEvent = await Event.create({ ...eventData, createdBy: req.user._id, published: true });
+        savedEvents.push(newEvent);
+      }
+    }
+
+    await tokenData.updateLastSync();
+    console.log('Sync complete:', savedEvents.length, 'events saved');
+
+    res.json({
+      success: true,
+      data: { events: savedEvents, imported: savedEvents.length },
+      message: 'Synced ' + savedEvents.length + ' events from Google Calendar'
+    });
+  } catch (error) {
+    console.error('Sync error:', error);
+    res.status(500).json({ success: false, error: 'Failed to sync events' });
+  }
+});
+
 router.post('/export/:eventId', authenticate, requireAdmin, async (req, res) => {
   try {
     const event = await Event.findById(req.params.eventId);
     if (!event) {
-      return res.status(404).json({ 
-        success: false, 
-        error: 'Event not found' 
-      });
+      return res.status(404).json({ success: false, error: 'Event not found' });
     }
 
-    // You'll need to implement token retrieval from your database
-    const userTokens = {}; // Get tokens for the current user
-    googleCalendarService.setCredentials(userTokens);
+    const tokenData = await GoogleCalendarToken.findOne({ userId: req.user._id });
+    if (!tokenData) {
+      return res.status(400).json({ success: false, error: 'Not connected' });
+    }
+
+    googleCalendarService.setCredentials({
+      access_token: tokenData.accessToken,
+      refresh_token: tokenData.refreshToken,
+      token_type: tokenData.tokenType,
+      expiry_date: tokenData.expiryDate.getTime()
+    });
 
     const googleEvent = await googleCalendarService.addEvent(event);
-
-    // Update the event with Google Calendar ID
     event.googleCalendarEventId = googleEvent.id;
     await event.save();
 
-    res.json({ 
-      success: true, 
-      data: { event: googleEvent },
-      message: 'Successfully exported event to Google Calendar'
-    });
+    res.json({ success: true, message: 'Exported successfully' });
   } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      error: 'Failed to export event to Google Calendar' 
-    });
+    res.status(500).json({ success: false, error: 'Failed to export' });
   }
 });
 
