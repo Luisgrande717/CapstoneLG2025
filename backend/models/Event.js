@@ -163,6 +163,19 @@ const EventSchema = new mongoose.Schema({
   lastModifiedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  // Google Calendar integration fields
+  googleCalendarEventId: {
+    type: String,
+    sparse: true,
+    index: true
+  },
+  googleCalendarId: {
+    type: String,
+    default: 'primary'
+  },
+  lastSyncedWithGoogle: {
+    type: Date
   }
 }, {
   timestamps: true,
