@@ -60,7 +60,8 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Enhanced Footer**: Updated with office hours, subscription system integration, and complete contact information
 ✅ **Subscriber Management**: Admin dashboard for viewing email subscribers with filtering and statistics
 ✅ **Mass Email System**: Send bulk emails to subscribers with attachment support (images/PDFs), language filtering, and selective targeting
-✅ **Google Calendar Embed**: Responsive embedded Google Calendar on Events page with month/week/agenda view toggle and subscription link
+✅ **Google Calendar Integration**: Parish calendar (olfperthamboy@gmail.com) as primary event source with automatic synchronization and embedded calendar view
+✅ **Simplified Events Page**: Google Calendar-focused design with responsive embed and synchronized event cards from parish calendar
 
 ## 🔧 Technical Implementation Highlights
 
@@ -142,6 +143,9 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - **Mass Email System**: Nodemailer-powered bulk email sending with HTML templates, attachment support, and selective targeting
 - **Email Composition Interface**: Rich email composer with subject, message, file attachments, and recipient filtering options
 - **Subscriber Analytics**: Real-time statistics showing total subscribers, language preferences, and subscription sources
+- **Parish Calendar Integration**: Updated sync and export endpoints to use olfperthamboy@gmail.com as primary parish calendar
+- **Simplified Events Page**: Removed react-calendar in favor of Google Calendar embed as the primary calendar interface
+- **Enhanced Event Cards**: Redesigned event display with improved formatting, emojis for visual hierarchy, and better responsive grid layout
 
 ### Bug Fixes (September 2025)
 - **Express Compatibility**: Resolved Express 5.x compatibility issues causing API failures

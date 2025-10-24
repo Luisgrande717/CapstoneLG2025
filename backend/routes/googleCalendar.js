@@ -82,8 +82,10 @@ router.post('/sync', authenticate, requireAdmin, async (req, res) => {
       expiry_date: tokenData.expiryDate.getTime()
     });
 
-    console.log('Fetching events from Google Calendar...');
-    const googleEvents = await googleCalendarService.listEvents();
+    // Use the parish calendar email as the calendar ID
+    const parishCalendarId = 'olfperthamboy@gmail.com';
+    console.log('Fetching events from Google Calendar:', parishCalendarId);
+    const googleEvents = await googleCalendarService.listEvents(parishCalendarId);
     console.log('Found', googleEvents.length, 'events');
 
     const savedEvents = [];
@@ -133,13 +135,17 @@ router.post('/export/:eventId', authenticate, requireAdmin, async (req, res) => 
       expiry_date: tokenData.expiryDate.getTime()
     });
 
-    const googleEvent = await googleCalendarService.addEvent(event);
+    // Export to the parish calendar
+    const parishCalendarId = 'olfperthamboy@gmail.com';
+    const googleEvent = await googleCalendarService.addEvent(event, parishCalendarId);
     event.googleCalendarEventId = googleEvent.id;
+    event.googleCalendarId = parishCalendarId;
     await event.save();
 
-    res.json({ success: true, message: 'Exported successfully' });
+    res.json({ success: true, message: 'Exported to parish calendar successfully' });
   } catch (error) {
-    res.status(500).json({ success: false, error: 'Failed to export' });
+    console.error('Export error:', error);
+    res.status(500).json({ success: false, error: 'Failed to export to parish calendar' });
   }
 });
 
