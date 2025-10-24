@@ -60,6 +60,7 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Enhanced Footer**: Updated with office hours, subscription system integration, and complete contact information
 ✅ **Subscriber Management**: Admin dashboard for viewing email subscribers with filtering and statistics
 ✅ **Mass Email System**: Send bulk emails to subscribers with attachment support (images/PDFs), language filtering, and selective targeting
+✅ **Google Calendar Embed**: Responsive embedded Google Calendar on Events page with month/week/agenda view toggle and subscription link
 
 ## 🔧 Technical Implementation Highlights
 

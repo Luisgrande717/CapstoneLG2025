@@ -13,6 +13,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
+import GoogleCalendarEmbed from '../components/GoogleCalendarEmbed';
 import './Events.css';
 
 const Events = () => {
@@ -200,6 +201,14 @@ const Events = () => {
           </div>
         </div>
       )}
+
+      {/* Google Calendar Embed */}
+      <div style={styles.googleCalendarSection}>
+        <GoogleCalendarEmbed
+          calendarId="olfperthamboy@gmail.com"
+          timezone="America/New_York"
+        />
+      </div>
     </section>
   );
 };
@@ -315,6 +324,15 @@ const styles = {
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     border: '1px solid #e1e5e9',
+  },
+  googleCalendarSection: {
+    width: '100%',
+    maxWidth: '1200px',
+    margin: '60px auto 0',
+    padding: '40px 20px',
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
   },
 };
 

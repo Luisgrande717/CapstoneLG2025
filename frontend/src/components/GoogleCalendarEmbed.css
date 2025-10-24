@@ -1,0 +1,143 @@
+/**
+ * Google Calendar Embed Styles
+ */
+
+.google-calendar-embed {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 28px;
+}
+
+.calendar-view-toggle {
+  display: flex;
+  gap: 10px;
+}
+
+.calendar-view-toggle button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #555;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.calendar-view-toggle button:hover {
+  background-color: #f5f5f5;
+  border-color: #3498db;
+}
+
+.calendar-view-toggle button.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.calendar-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%; /* 4:3 Aspect Ratio */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.calendar-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.calendar-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.calendar-info {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.calendar-subscribe-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.calendar-subscribe-link:hover {
+  background-color: #357ae8;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .google-calendar-embed {
+    padding: 15px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .calendar-header h2 {
+    font-size: 24px;
+  }
+
+  .calendar-view-toggle {
+    width: 100%;
+  }
+
+  .calendar-view-toggle button {
+    flex: 1;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .calendar-container {
+    padding-bottom: 100%; /* Taller on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-header h2 {
+    font-size: 20px;
+  }
+
+  .calendar-view-toggle button {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .calendar-container {
+    padding-bottom: 120%; /* Even taller on small screens */
+  }
+}
