@@ -115,7 +115,10 @@ const SubscriberManager = () => {
         setEmailForm({ subject: '', message: '', language: '', attachment: null });
         setSelectedSubscribers([]);
         setShowEmailForm(false);
-        document.querySelector('input[type="file"]')?.value = '';
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) {
+          fileInput.value = '';
+        }
       }
     } catch (err) {
       console.error('Error sending email:', err);
