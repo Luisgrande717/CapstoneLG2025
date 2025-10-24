@@ -70,11 +70,11 @@ export const translations = {
     backToSchoolDesc: "We'll celebrate and pray for students as the new year begins.",
 
     // Footer
-    parishAddress: '123 Smith Street, Perth Amboy, NJ',
-    massTimesFooter: 'Mass Times: Sat 5PM • Sun 9AM & 11AM',
+    parishAddress: '380 Smith Street, Perth Amboy, NJ',
+    massTimesFooter: 'Office Hours Mon - Fri 9:00am - 01:00pm (01:00pm - 02:00pm Lunch) 02:00pm - 05:00pm:: Sat 09:00am - 12:00pm • Sun CLOSED',
     connect: 'Connect',
-    emailLabel: 'Email: contact@yourparish.org',
-    phoneLabel: 'Phone: (732) 555-1234',
+    emailLabel: 'Email: olfperthamboy@gmail.com',
+    phoneLabel: 'Phone: (732) 442-6634',
     stayConnected: 'Stay Connected',
     emailRequired: 'Email is required',
     subscribing: 'Subscribing...',
@@ -351,11 +351,11 @@ export const translations = {
     backToSchoolDesc: 'Celebraremos y oraremos por los estudiantes al comenzar el nuevo año.',
 
     // Footer
-    parishAddress: '123 Smith Street, Perth Amboy, NJ',
-    massTimesFooter: 'Horarios de Misa: Sáb 5PM • Dom 9AM y 11AM',
+    parishAddress: '380 Smith Street, Perth Amboy, NJ',
+    massTimesFooter: 'Horario de Oficina: Lun - Vie 9:00am - 01:00pm (01:00pm - 02:00pm Almuerzo) 02:00pm - 05:00pm:: Sáb 09:00am - 12:00pm • Dom CERRADO',
     connect: 'Conectar',
-    emailLabel: 'Correo: contact@yourparish.org',
-    phoneLabel: 'Teléfono: (732) 555-1234',
+    emailLabel: 'Correo: olfperthamboy@gmail.com',
+    phoneLabel: 'Teléfono: (732) 442-6634',
     stayConnected: 'Mantente Conectado',
     emailPlaceholder: 'Tu correo electrónico',
     subscribe: 'Suscribirse',
