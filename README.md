@@ -1,16 +1,34 @@
 # Our Lady of Fatima Parish Website (MERN Stack)
 
+![Project Status](https://img.shields.io/badge/status-active%20development-brightgreen)
+![MongoDB](https://img.shields.io/badge/MongoDB-✅%20Integrated-success)
+![Express.js](https://img.shields.io/badge/Express.js-✅%20Modernized-success)
+![React](https://img.shields.io/badge/React-✅%20v19-success)
+![Node.js](https://img.shields.io/badge/Node.js-✅%20v18+-success)
+
 ## Purpose
 This project is a bilingual, community-focused website built to serve the Our Lady of Fatima parish. It features mass schedules, upcoming events, and easy navigation—all designed for accessibility and spiritual engagement.
-The site uses a modular React frontend and is evolving into a full MERN-stack application with spiritual content automation, admin tools, and community impact at its core.
+
+**Current Status**: Fully functional MERN-stack application with admin dashboard, Google Calendar integration, mass email system, announcement management, and bilingual support (English/Spanish).
+
+### 🎯 Key Features
+- ✅ **Bilingual Support**: Complete English/Spanish translation system
+- ✅ **Google Calendar Integration**: Auto-sync parish events from olfperthamboy@gmail.com
+- ✅ **Admin Dashboard**: Full content management (events, announcements, subscribers)
+- ✅ **Mass Email System**: Bulk email with attachments and language filtering
+- ✅ **Announcement Management**: File uploads (images/PDFs) with priority-based display
+- ✅ **Email Subscriptions**: Newsletter signup with language preferences
+- ✅ **Daily Scripture**: Auto-fetched Gospel readings from USCCB
+- ✅ **Secure Authentication**: JWT-based admin auth with bcrypt password hashing
+- ✅ **Mobile Responsive**: Optimized for all device sizes
 
 ## 🛠️ Tech Stack Overview (MERN)
-| Technology | Status | Role | 
+| Technology | Status | Role |
 |------------|--------|------|
-| MongoDB | Planned | Will store dynamic events, parish updates, and user data | 
-| Express.js | ✅ Modernized | Powers backend API routes, including dynamic reading scraping | 
-| React.js | ✅ Modernized | Manages frontend components, bilingual UI, and page routing | 
-| Node.js | ✅ Modernized | Backend runtime, API orchestration, and server configuration |
+| MongoDB Atlas | ✅ Integrated | Stores events, announcements, user accounts, email subscriptions, and OAuth tokens |
+| Express.js | ✅ Modernized | Powers backend API routes, authentication, file uploads, and email services |
+| React.js | ✅ Modernized | Manages frontend components, bilingual UI, page routing, and admin dashboard |
+| Node.js | ✅ Modernized | Backend runtime, API orchestration, Google Calendar sync, and email automation |
 
 ## 📈 Recent Modernization (2025 Standards)
 This codebase has been comprehensively updated to 2025 development standards for improved maintainability, performance, and developer experience:
@@ -89,15 +107,54 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **Carousel**: Fixed Slick slider configuration preventing card stacking issues
 - **Touch Interactions**: Optimized for mobile devices with proper gesture support
 
+## 🔒 Security Features
+
+This project follows industry best practices for web application security:
+
+### Authentication & Authorization
+- JWT-based authentication with secure token storage
+- Password hashing using bcrypt (10 salt rounds)
+- Admin-only routes protected with middleware
+- Rate limiting on sensitive endpoints (20 requests/15 minutes)
+- HttpOnly cookies for XSS protection
+
+### API Security
+- CORS configuration restricting allowed origins
+- Helmet.js for security headers (CSP, HSTS, X-Frame-Options)
+- Input validation and sanitization on all endpoints
+- MongoDB injection prevention through Mongoose schemas
+- Environment variable protection (never committed to repo)
+
+### File Upload Security
+- File type validation (images: JPG/PNG/GIF, documents: PDF/DOC/DOCX)
+- File size limits (10MB max per upload)
+- Multer middleware with memory storage for email attachments
+- Disk storage with unique filenames for announcements
+- Static file serving with proper MIME types
+
+### OAuth Security
+- Google OAuth 2.0 with offline access and refresh tokens
+- State tokens signed with JWT to prevent CSRF
+- Secure token storage in MongoDB with expiry tracking
+- Automatic token refresh handling
+
+### Email Security
+- App-specific passwords (never account passwords)
+- BCC for recipient privacy in mass emails
+- HTML email sanitization
+- Attachment validation before sending
+
+**For detailed security guidelines, see [SECURITY.md](SECURITY.md)**
+
 ## 🔮 Planned Features
 - **Payment Integration**: Donation and e-store integration (Stripe, PayPal, Donorbox)
 - **Interactive Forms**: Contact and prayer request forms with backend processing
 - **Dynamic Content**: Saint of the Day module with automated content updates
 - **Enhanced Scripture**: Advanced scraping for Responsorial Psalms and complete Gospel segments
-- **Database Integration**: Live MongoDB connection for dynamic content management
 - **TypeScript Migration**: Type safety implementation for improved developer experience
 - **Testing Suite**: Comprehensive test coverage with Jest/Vitest
 - **Email Automation**: Automated newsletter generation and distribution system
+- **Two-Factor Authentication**: Enhanced admin security with 2FA
 
 ## 🎯 Vision
 To deliver a welcoming digital home where parishioners and visitors can find worship times, daily inspiration, and ways to connect—all through an interface that is intuitive, inclusive, and spiritually enriching.
@@ -107,14 +164,79 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 ### Prerequisites
 - Node.js (v18 or higher)
 - npm or yarn package manager
+- MongoDB Atlas account (for database)
+- Google Cloud Console account (for Calendar OAuth)
+- Gmail account with app-specific password (for email features)
 
 ### Installation
-1. Clone the repository
-2. Install frontend dependencies: `cd frontend && npm install`
-3. Install backend dependencies: `cd backend && npm install`
-4. Start development servers:
-   - Frontend: `npm run dev` (runs on http://localhost:5173)
-   - Backend: `npm start` (runs on http://localhost:8080)
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Luisgrande717/CapstoneLG2025.git
+   cd CapstoneLG2025
+   ```
+
+2. **Install dependencies**
+   ```bash
+   # Install frontend dependencies
+   cd frontend
+   npm install
+
+   # Install backend dependencies
+   cd ../backend
+   npm install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the `backend` directory:
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
+
+   Edit `.env` with your credentials:
+   ```env
+   # MongoDB Connection
+   MONGODB_URI=your-mongodb-connection-string
+
+   # JWT Secret (generate a strong random string)
+   JWT_SECRET=your-secure-jwt-secret
+
+   # Google OAuth (from Google Cloud Console)
+   GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=your-client-secret
+   GOOGLE_REDIRECT_URI=http://localhost:8080/api/google-calendar/oauth2callback
+
+   # Email Configuration (Gmail app password)
+   EMAIL_USER=your-parish-email@gmail.com
+   EMAIL_PASSWORD=your-app-specific-password
+   ```
+
+   ⚠️ **NEVER** commit your `.env` file to version control!
+
+4. **Start development servers**
+   ```bash
+   # Terminal 1 - Backend server
+   cd backend
+   npm start
+   # Runs on http://localhost:8080
+
+   # Terminal 2 - Frontend server
+   cd frontend
+   npm run dev
+   # Runs on http://localhost:5173
+   ```
+
+5. **Create admin account**
+   ```bash
+   cd backend
+   node scripts/createAdmin.js
+   ```
+
+6. **Access the application**
+   - **Public site**: http://localhost:5173
+   - **Admin dashboard**: http://localhost:5173/admin/login
 
 ### Development Notes
 - The site is fully responsive and optimized for mobile devices

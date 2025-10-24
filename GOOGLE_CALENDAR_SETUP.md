@@ -43,13 +43,14 @@ Visit: https://console.cloud.google.com/
   http://localhost:5175/admin
   ```
 
-### 6. Update .env File (if credentials changed)
-Your current credentials in `backend/.env`:
+### 6. Update .env File
+Create or update `backend/.env` with your Google OAuth credentials:
 ```
-GOOGLE_CLIENT_ID=76085018587-5np5gord632lls1l43o29t10gs80suvd.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
+GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-client-secret
 GOOGLE_REDIRECT_URI=http://localhost:8080/api/google-calendar/oauth2callback
 ```
+⚠️ **IMPORTANT**: Never commit your actual `.env` file or real credentials to GitHub!
 
 ### 7. Restart Backend Server
 After making changes:

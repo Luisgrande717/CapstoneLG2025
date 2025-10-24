@@ -1,3 +1,8 @@
+# Dependencies
+node_modules
+dist
+dist-ssr
+
 # Logs
 logs
 *.log
@@ -7,11 +12,24 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Environment variables and secrets
 .env
-node_modules
-dist
-dist-ssr
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.local
+
+# Sensitive files and backups
+*.backup
+*_backup.*
+*.bak
+test-admin.md
+DEVELOPER.md
+
+# File uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +41,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Claude Code settings (may contain sensitive paths)
+.claude/settings.local.json
