@@ -40,7 +40,8 @@
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.3",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.10"
   },
   "devDependencies": {
     "eslint": "^9.30.1",

@@ -8,9 +8,27 @@
  */
 
 import express from 'express';
+import nodemailer from 'nodemailer';
+import multer from 'multer';
 import EmailSubscription from '../models/EmailSubscription.js';
+import { authenticate, requireAdmin } from '../middleware/auth.js';
 
 const router = express.Router();
+
+// Configure multer for email attachments (memory storage for email sending)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif|pdf|doc|docx/;
+    const extname = allowedTypes.test(file.originalname.toLowerCase());
+    if (extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only images and documents are allowed'));
+    }
+  }
+});
 
 /**
  * @route   POST /api/subscriptions/subscribe
@@ -203,10 +221,10 @@ router.get('/stats', async (req, res) => {
 
 /**
  * @route   GET /api/subscriptions/list
- * @desc    Get subscription list (admin only - basic implementation)
- * @access  Public (TODO: Add admin authentication)
+ * @desc    Get subscription list (admin only)
+ * @access  Private (Admin)
  */
-router.get('/list', async (req, res) => {
+router.get('/list', authenticate, requireAdmin, async (req, res) => {
   try {
     const { page = 1, limit = 50, language, source } = req.query;
 
@@ -239,6 +257,118 @@ router.get('/list', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Server error getting subscription list'
+    });
+  }
+});
+
+/**
+ * @route   POST /api/subscriptions/send-mass-email
+ * @desc    Send mass email to all subscribers (admin only)
+ * @access  Private (Admin)
+ */
+router.post('/send-mass-email', authenticate, requireAdmin, upload.single('attachment'), async (req, res) => {
+  try {
+    const { subject, message, language, selectedEmails } = req.body;
+
+    // Validation
+    if (!subject || !message) {
+      return res.status(400).json({
+        success: false,
+        error: 'Subject and message are required'
+      });
+    }
+
+    // Get subscriber emails
+    let recipients;
+    if (selectedEmails && selectedEmails.length > 0) {
+      // Send to selected emails only
+      recipients = JSON.parse(selectedEmails);
+    } else {
+      // Send to all active subscribers
+      const filter = { isActive: true };
+      if (language) filter.preferredLanguage = language;
+
+      const subscriptions = await EmailSubscription.find(filter).select('email');
+      recipients = subscriptions.map(sub => sub.email);
+    }
+
+    if (recipients.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'No recipients found'
+      });
+    }
+
+    // Create email transporter (using Gmail as example - configure in .env)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER || 'olfperthamboy@gmail.com',
+        pass: process.env.EMAIL_PASSWORD // App-specific password required
+      }
+    });
+
+    // Prepare email options
+    const mailOptions = {
+      from: `"Our Lady of Fatima Parish" <${process.env.EMAIL_USER || 'olfperthamboy@gmail.com'}>`,
+      bcc: recipients, // Use BCC to hide recipient emails from each other
+      subject: subject,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background-color: #2c3e50; color: white; padding: 20px; text-align: center;">
+            <h1>Our Lady of Fatima Parish</h1>
+            <p style="margin: 0;">380 Smith Street, Perth Amboy, NJ</p>
+          </div>
+          <div style="padding: 20px; background-color: #f9f9f9;">
+            <div style="background-color: white; padding: 20px; border-radius: 5px;">
+              ${message.replace(/\n/g, '<br>')}
+            </div>
+          </div>
+          <div style="background-color: #34495e; color: white; padding: 15px; text-align: center; font-size: 12px;">
+            <p>Our Lady of Fatima Parish</p>
+            <p>Phone: (732) 442-6634 | Email: olfperthamboy@gmail.com</p>
+            <p style="margin-top: 10px; font-size: 10px;">
+              You received this email because you subscribed to parish updates.
+            </p>
+          </div>
+        </div>
+      `
+    };
+
+    // Add attachment if provided
+    if (req.file) {
+      mailOptions.attachments = [{
+        filename: req.file.originalname,
+        content: req.file.buffer
+      }];
+    }
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent successfully to ${recipients.length} recipient(s)`,
+      data: {
+        recipientCount: recipients.length
+      }
+    });
+
+    console.log(`Mass email sent to ${recipients.length} subscribers: "${subject}"`);
+
+  } catch (error) {
+    console.error('Mass email error:', error);
+
+    if (error.message.includes('Invalid login')) {
+      return res.status(500).json({
+        success: false,
+        error: 'Email service not configured. Please contact the system administrator.'
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      error: 'Failed to send email. Please try again later.'
     });
   }
 });

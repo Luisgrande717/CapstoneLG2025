@@ -58,6 +58,8 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Announcement System**: Full-featured announcement management with file uploads (images/PDFs), priority settings, and bilingual support
 ✅ **Featured Announcements**: Homepage carousel displaying active announcements with automatic image/document handling
 ✅ **Enhanced Footer**: Updated with office hours, subscription system integration, and complete contact information
+✅ **Subscriber Management**: Admin dashboard for viewing email subscribers with filtering and statistics
+✅ **Mass Email System**: Send bulk emails to subscribers with attachment support (images/PDFs), language filtering, and selective targeting
 
 ## 🔧 Technical Implementation Highlights
 
@@ -76,7 +78,8 @@ This codebase has been comprehensively updated to 2025 development standards for
 - **API Endpoints**: Updated for production deployment with proper localhost configurations
 - **Admin Authentication**: JWT-based admin authentication for content management
 - **Email Management**: Subscription system with language preferences and analytics
-- **File Upload System**: Multer integration for announcement file uploads with validation and storage
+- **Mass Email System**: Nodemailer integration for bulk email sending with attachment support
+- **File Upload System**: Multer integration for announcement and email attachment uploads with validation
 - **Static File Serving**: Express static middleware for serving uploaded announcements
 
 ### Mobile Responsiveness
@@ -134,6 +137,10 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - **Featured Announcement Carousel**: Homepage integration displaying active announcements with automatic file type detection
 - **Footer Enhancement**: Updated footer with detailed office hours, email subscription integration, and social media links
 - **Announcement Toggle System**: One-click activation/deactivation with automatic deactivation of other announcements
+- **Subscriber Management Dashboard**: Admin interface for viewing and managing email subscribers with filtering by language and source
+- **Mass Email System**: Nodemailer-powered bulk email sending with HTML templates, attachment support, and selective targeting
+- **Email Composition Interface**: Rich email composer with subject, message, file attachments, and recipient filtering options
+- **Subscriber Analytics**: Real-time statistics showing total subscribers, language preferences, and subscription sources
 
 ### Bug Fixes (September 2025)
 - **Express Compatibility**: Resolved Express 5.x compatibility issues causing API failures
