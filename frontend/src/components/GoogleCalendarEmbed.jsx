@@ -3,6 +3,9 @@
  *
  * Displays the parish Google Calendar directly on the website
  * Responsive design that adapts to different screen sizes
+ *
+ * NOTE: Calendar must be set to "public" in Google Calendar settings
+ * for the embed to work without authentication issues
  */
 
 import { useState } from 'react';
@@ -10,6 +13,7 @@ import './GoogleCalendarEmbed.css';
 
 const GoogleCalendarEmbed = ({ calendarId = 'olfperthamboy@gmail.com', timezone = 'America/New_York' }) => {
   const [view, setView] = useState('month'); // month, week, agenda
+  const [showFallback, setShowFallback] = useState(false);
 
   // Construct the Google Calendar embed URL with current view
   const getCalendarUrl = () => {
@@ -25,10 +29,20 @@ const GoogleCalendarEmbed = ({ calendarId = 'olfperthamboy@gmail.com', timezone 
       showTabs: '1',
       showCalendars: '0',
       showTz: '0',
-      bgcolor: '#ffffff'
+      wkst: '1', // Week starts on Sunday
+      bgcolor: '#ffffff',
+      // Add parameters to improve mobile compatibility
+      hl: 'en', // Language
+      showCalendars: '0',
+      showTz: '0'
     });
 
     return `${baseUrl}?${params.toString()}`;
+  };
+
+  // Direct link to view calendar in Google Calendar app or browser
+  const getDirectCalendarLink = () => {
+    return `https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(calendarId)}`;
   };
 
   return (
@@ -72,14 +86,27 @@ const GoogleCalendarEmbed = ({ calendarId = 'olfperthamboy@gmail.com', timezone 
         <p className="calendar-info">
           View and subscribe to our parish calendar. Click on any event for more details.
         </p>
-        <a
-          href={`https://calendar.google.com/calendar/u/0?cid=${encodeURIComponent(calendarId)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="calendar-subscribe-link"
-        >
-          Subscribe in Google Calendar
-        </a>
+        <div className="calendar-actions">
+          <a
+            href={getDirectCalendarLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="calendar-subscribe-link primary"
+          >
+            Open in Google Calendar
+          </a>
+          <a
+            href={`https://calendar.google.com/calendar/ical/${encodeURIComponent(calendarId)}/public/basic.ics`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="calendar-subscribe-link secondary"
+          >
+            Subscribe (iCal)
+          </a>
+        </div>
+        <p className="calendar-note">
+          📱 Having trouble viewing on mobile? Try opening in the Google Calendar app using the button above.
+        </p>
       </div>
     </div>
   );
