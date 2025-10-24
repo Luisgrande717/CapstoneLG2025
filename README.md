@@ -55,6 +55,9 @@ This codebase has been comprehensively updated to 2025 development standards for
 ✅ **Email Subscriptions**: Newsletter signup system with language preferences and subscription management
 ✅ **Admin Login Button**: User icon in navbar for easy admin access with responsive styling
 ✅ **Google Calendar Sync**: Full OAuth2 integration with bidirectional event import/export, token storage, and one-click sync button in admin dashboard
+✅ **Announcement System**: Full-featured announcement management with file uploads (images/PDFs), priority settings, and bilingual support
+✅ **Featured Announcements**: Homepage carousel displaying active announcements with automatic image/document handling
+✅ **Enhanced Footer**: Updated with office hours, subscription system integration, and complete contact information
 
 ## 🔧 Technical Implementation Highlights
 
@@ -68,11 +71,13 @@ This codebase has been comprehensively updated to 2025 development standards for
 ### Backend Architecture
 - **API Design**: RESTful Express routes with structured error handling
 - **Web Scraping**: Axios & Cheerio integration for USCCB daily Gospel extraction
-- **Security**: CORS configuration, input validation, and rate limiting
+- **Security**: CORS configuration, input validation, rate limiting, and Helmet.js security headers
 - **Modularity**: Clean routing structure with separated concerns
 - **API Endpoints**: Updated for production deployment with proper localhost configurations
 - **Admin Authentication**: JWT-based admin authentication for content management
 - **Email Management**: Subscription system with language preferences and analytics
+- **File Upload System**: Multer integration for announcement file uploads with validation and storage
+- **Static File Serving**: Express static middleware for serving uploaded announcements
 
 ### Mobile Responsiveness
 - **Navigation**: Hamburger menu with backdrop blur and smooth animations
@@ -123,6 +128,12 @@ To deliver a welcoming digital home where parishioners and visitors can find wor
 - **Token Persistence**: Created GoogleCalendarToken MongoDB model for secure OAuth token storage
 - **Event Import/Export**: Implemented /sync and /export endpoints with duplicate prevention logic
 - **Admin Dashboard Sync Button**: One-click Google Calendar sync with success feedback and event counter
+- **Announcement Management System**: Complete CRUD operations for parish announcements with priority-based display
+- **File Upload Integration**: Multer-based file upload system supporting images (JPG, PNG, GIF) and documents (PDF, DOC, DOCX)
+- **Bilingual Announcements**: Full bilingual support with separate English/Spanish title and description fields
+- **Featured Announcement Carousel**: Homepage integration displaying active announcements with automatic file type detection
+- **Footer Enhancement**: Updated footer with detailed office hours, email subscription integration, and social media links
+- **Announcement Toggle System**: One-click activation/deactivation with automatic deactivation of other announcements
 
 ### Bug Fixes (September 2025)
 - **Express Compatibility**: Resolved Express 5.x compatibility issues causing API failures

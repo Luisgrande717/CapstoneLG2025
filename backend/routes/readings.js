@@ -24,7 +24,7 @@ const router = express.Router();
  */
 const USCCB_CONFIG = {
   baseUrl: 'https://bible.usccb.org/daily-bible-reading',
-  timeout: 10000,
+  timeout: 5000, // Reduced timeout to 5 seconds
   userAgent: 'Our Lady of Fatima Parish Website/2.0 (Parish Community Tool)',
   selectors: {
     readingTitle: '.b-verse .b-verse-link',
@@ -73,10 +73,11 @@ const scrapeUSCCBReading = async () => {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
         'Accept-Encoding': 'gzip, deflate',
-        'Connection': 'keep-alive'
+        'Connection': 'close'
       }
     });
 
+    console.log('✅ USCCB response received');
     const $ = cheerio.load(response.data);
     let readingText = '';
     let readingTitle = 'Daily Reading';
@@ -131,11 +132,15 @@ const scrapeUSCCBReading = async () => {
     return null;
 
   } catch (error) {
-    console.error('❌ USCCB scraping error:', {
-      message: error.message,
-      code: error.code,
-      status: error.response?.status
-    });
+    if (error.code === 'ECONNABORTED' || error.message.includes('timeout')) {
+      console.error('⏱️ USCCB request timed out after', USCCB_CONFIG.timeout, 'ms');
+    } else {
+      console.error('❌ USCCB scraping error:', {
+        message: error.message,
+        code: error.code,
+        status: error.response?.status
+      });
+    }
     return null;
   }
 };

@@ -9,12 +9,14 @@
 
 import HeroSection from '../components/HeroSection';
 import EventsCarousel from '../components/EventsCarousel';
+import FeaturedAnnouncement from '../components/FeaturedAnnouncement';
 import QuickAccessCards from '../components/QuickAccessCards';
 
 const Homepage = () => {
   return (
     <>
       <HeroSection />
+      <FeaturedAnnouncement />
       <EventsCarousel />
       <QuickAccessCards />
     </>

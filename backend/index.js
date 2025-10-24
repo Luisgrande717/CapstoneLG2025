@@ -30,6 +30,7 @@ import eventsRoute from './routes/events.js';
 import authRoute from './routes/auth.js';
 import subscriptionsRoute from './routes/subscriptions.js';
 import googleCalendarRoute from './routes/googleCalendar.js';
+import announcementsRoute from './routes/announcements.js';
 
 // Database connection
 import connectDB from './config/db.js';
@@ -122,6 +123,8 @@ const createApp = () => {
   // Body parsing middleware
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+  // Serve static uploads
+  app.use('/uploads', express.static(join(__dirname, 'uploads')));
 
 
   // CORS configuration
@@ -137,7 +140,7 @@ const createApp = () => {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     credentials: true,
     maxAge: 86400 // Cache preflight for 24 hours
@@ -216,6 +219,7 @@ const mountRoutes = (app) => {
   app.use('/api/auth', authRoute);
   app.use('/api/subscriptions', subscriptionsRoute);
   app.use('/api/google-calendar', googleCalendarRoute);
+  app.use('/api/announcements', announcementsRoute);
 
   // Root endpoint
   app.get('/', (req, res) => {

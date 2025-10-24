@@ -54,8 +54,8 @@ class GoogleCalendarService {
           es: event.summary // You might want to implement translation here
         },
         description: {
-          en: event.description || '',
-          es: event.description || '' // You might want to implement translation here
+          en: event.description || 'No description provided',
+          es: event.description || 'Sin descripción' // You might want to implement translation here
         },
         startDate: event.start.dateTime || event.start.date,
         endDate: event.end.dateTime || event.end.date,
@@ -118,6 +118,7 @@ class GoogleCalendarService {
     const authUrl = this.oauth2Client.generateAuthUrl({
       access_type: 'offline',
       scope: scopes,
+      prompt: 'consent' // Force consent screen to always get refresh token
     });
 
     console.log('Generated Auth URL:', authUrl);

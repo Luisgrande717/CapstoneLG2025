@@ -132,7 +132,7 @@ const AboutUs = () => {
           {/* Side Menu */}
           <aside className="about-us-sidebar">
             <nav className="sidebar-nav">
-              <h3 className="sidebar-title">{t('aboutUsPage.title')}</h3>
+              <h3 className="sidebar-title">{t('AboutUs')}</h3>
               <ul className="sidebar-menu">
                 {sections.map((section) => (
                   <li key={section.id} className="sidebar-item">

@@ -36,16 +36,27 @@ router.get('/oauth2callback', async (req, res) => {
     const tokens = await googleCalendarService.getTokens(code);
     const expiryDate = new Date(Date.now() + 3600000);
 
+    // Find existing token to preserve refresh token if not provided
+    const existingToken = await GoogleCalendarToken.findOne({ userId });
+
+    const updateData = {
+      userId,
+      accessToken: tokens.access_token,
+      refreshToken: tokens.refresh_token || (existingToken ? existingToken.refreshToken : null),
+      tokenType: tokens.token_type || 'Bearer',
+      expiryDate,
+      scope: tokens.scope
+    };
+
+    // Only proceed if we have a refresh token (either new or existing)
+    if (!updateData.refreshToken) {
+      console.error('No refresh token available. User needs to revoke access and re-authorize.');
+      return res.redirect('http://localhost:5173/admin?google_auth=failed&reason=no_refresh_token');
+    }
+
     await GoogleCalendarToken.findOneAndUpdate(
       { userId },
-      {
-        userId,
-        accessToken: tokens.access_token,
-        refreshToken: tokens.refresh_token,
-        tokenType: tokens.token_type || 'Bearer',
-        expiryDate,
-        scope: tokens.scope
-      },
+      updateData,
       { upsert: true, new: true }
     );
 

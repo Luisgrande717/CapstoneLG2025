@@ -39,7 +39,8 @@
     "helmet": "^8.1.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.3"
+    "mongoose": "^8.16.3",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "eslint": "^9.30.1",
