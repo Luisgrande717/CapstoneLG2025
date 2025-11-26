@@ -12,11 +12,10 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import './Bulletin.css';
+import API_URL from '../config/api.js';
 
 // Configure PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 const Bulletin = () => {
   const [bulletin, setBulletin] = useState(null);

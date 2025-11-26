@@ -46,12 +46,33 @@ const __dirname = dirname(__filename);
 // Environment configuration
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const PORT = process.env.PORT || 8080;
-const FRONTEND_URLS = [
-  'http://localhost:5173',
-  'http://localhost:5174',
-  'http://localhost:5175',
-  'http://localhost:3000'
-];
+
+// Configure allowed frontend origins based on environment
+const getAllowedOrigins = () => {
+  const origins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
+    'http://localhost:3000'
+  ];
+
+  // Add production URLs from environment variables
+  if (process.env.FRONTEND_URL) {
+    origins.push(process.env.FRONTEND_URL);
+  }
+
+  // Add custom domain URLs
+  if (process.env.CUSTOM_DOMAIN) {
+    origins.push(`https://${process.env.CUSTOM_DOMAIN}`);
+    origins.push(`https://www.${process.env.CUSTOM_DOMAIN}`);
+    origins.push(`http://${process.env.CUSTOM_DOMAIN}`);
+    origins.push(`http://www.${process.env.CUSTOM_DOMAIN}`);
+  }
+
+  return origins;
+};
+
+const FRONTEND_URLS = getAllowedOrigins();
 
 /**
  * Initialize Express application with middleware

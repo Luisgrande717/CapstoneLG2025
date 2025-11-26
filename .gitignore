@@ -20,6 +20,11 @@ lerna-debug.log*
 .env.production.local
 *.local
 
+# Keep Railway environment templates for documentation
+!.env.railway
+!backend/.env.railway
+!frontend/.env.railway
+
 # Sensitive files and backups
 *.backup
 *_backup.*
