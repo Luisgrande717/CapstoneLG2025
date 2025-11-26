@@ -46,11 +46,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  overflow: hidden;
 }
 
 .announcement-image {
-  max-width: 100%%;
+  max-width: 100%;
+  width: 100%;
   height: auto;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
@@ -81,6 +85,43 @@
 
 .download-link:hover {
   background: #e0b977;
+}
+
+/* Mobile Specific */
+@media (max-width: 767px) {
+  .featured-announcement {
+    padding: 20px 10px;
+  }
+
+  .announcement-container {
+    border-radius: 8px;
+  }
+
+  .announcement-header {
+    font-size: 1.5rem;
+    padding: 20px 15px 15px;
+  }
+
+  .announcement-content {
+    padding: 20px 15px;
+    gap: 20px;
+  }
+
+  .announcement-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .announcement-text p {
+    font-size: 1rem;
+  }
+
+  .announcement-image {
+    border-radius: 4px;
+  }
+
+  .file-download {
+    padding: 20px 15px;
+  }
 }
 
 /* Tablet and Desktop */
