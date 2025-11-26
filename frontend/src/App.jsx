@@ -36,6 +36,7 @@ const Donate = lazy(() => import('./pages/Donate'));
 const Sacraments = lazy(() => import('./pages/Sacraments'));
 const AboutUs = lazy(() => import('./pages/AboutUs'));
 const Readings = lazy(() => import('./pages/Readings'));
+const Bulletin = lazy(() => import('./pages/Bulletin'));
 
 // Admin components
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
@@ -96,6 +97,7 @@ function AppRoutes() {
           <Route path="/sacraments" element={<PublicLayout><Sacraments /></PublicLayout>} />
           <Route path="/about-us" element={<PublicLayout><AboutUs /></PublicLayout>} />
           <Route path="/readings" element={<PublicLayout><Readings /></PublicLayout>} />
+          <Route path="/bulletin" element={<PublicLayout><Bulletin /></PublicLayout>} />
           
           {/* Admin Routes with Clean Layout */}
           <Route 

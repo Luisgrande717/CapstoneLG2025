@@ -1,0 +1,391 @@
+/* Bulletin Manager Styles */
+
+.bulletin-manager {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.manager-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.manager-header h2 {
+  font-size: 2rem;
+  color: #312e2b;
+  margin: 0 0 10px 0;
+}
+
+.manager-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Upload Section */
+.bulletin-upload-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bulletin-upload-section h3 {
+  font-size: 1.5rem;
+  color: #312e2b;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0c987;
+}
+
+.bulletin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #312e2b;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.required {
+  color: #dc3545;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea {
+  padding: 12px 15px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #f0c987;
+  box-shadow: 0 0 0 3px rgba(240, 201, 135, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.form-group input[type="file"] {
+  padding: 10px;
+  border: 2px dashed #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: #f0c987;
+  background-color: rgba(240, 201, 135, 0.05);
+}
+
+.file-info {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #e9ecef;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.btn-upload {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #f0c987 0%, #e6b570 100%);
+  color: #312e2b;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-upload:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(240, 201, 135, 0.4);
+}
+
+.btn-upload:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Bulletins List Section */
+.bulletins-list-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bulletins-list-section h3 {
+  font-size: 1.5rem;
+  color: #312e2b;
+  margin: 0 0 25px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0c987;
+}
+
+.loading-state,
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-hint {
+  color: #999;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+/* Table Styles */
+.bulletins-table {
+  overflow-x: auto;
+}
+
+.bulletins-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bulletins-table thead {
+  background: linear-gradient(135deg, #312e2b 0%, #3d352f 100%);
+  color: white;
+}
+
+.bulletins-table th {
+  padding: 15px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bulletins-table tbody tr {
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s ease;
+}
+
+.bulletins-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.bulletins-table tbody tr.active-bulletin {
+  background-color: rgba(240, 201, 135, 0.1);
+}
+
+.bulletins-table td {
+  padding: 15px 12px;
+  vertical-align: middle;
+}
+
+.bulletin-title {
+  font-weight: 600;
+  color: #312e2b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.active-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: linear-gradient(135deg, #f0c987 0%, #e6b570 100%);
+  color: #312e2b;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.bulletin-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 5px;
+  font-weight: normal;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.inactive {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: #e9ecef;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view {
+  background: #17a2b8;
+  color: white;
+}
+
+.btn-view:hover {
+  background: #138496;
+}
+
+.btn-activate {
+  background: #28a745;
+  color: white;
+}
+
+.btn-activate:hover {
+  background: #218838;
+}
+
+.btn-deactivate {
+  background: #ffc107;
+  color: #212529;
+}
+
+.btn-deactivate:hover {
+  background: #e0a800;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .bulletins-table {
+    font-size: 0.9rem;
+  }
+
+  .bulletins-table th,
+  .bulletins-table td {
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bulletin-manager {
+    padding: 15px;
+  }
+
+  .bulletin-upload-section,
+  .bulletins-list-section {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .bulletin-upload-section h3,
+  .bulletins-list-section h3 {
+    font-size: 1.3rem;
+  }
+
+  /* Stack table on mobile */
+  .bulletins-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .bulletins-table table {
+    min-width: 800px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn-action {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .manager-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .bulletin-upload-section,
+  .bulletins-list-section {
+    padding: 15px;
+  }
+
+  .btn-upload {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .bulletins-table table {
+    font-size: 0.85rem;
+  }
+}

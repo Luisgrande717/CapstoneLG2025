@@ -16,6 +16,7 @@ import { useLanguage } from '../context/LanguageContext';
 import EventManager from '../components/EventManager';
 import AnnouncementManager from '../components/AnnouncementManager';
 import SubscriberManager from '../components/SubscriberManager';
+import BulletinManager from '../components/BulletinManager';
 import './AdminDashboard.css';
 import 'react-calendar/dist/Calendar.css';
 
@@ -137,6 +138,7 @@ const AdminDashboard = () => {
       { id: 'events', label: t('admin.dashboard.tabs.events', { fallback: 'Events' }) },
       { id: 'calendar', label: t('admin.dashboard.tabs.calendar', { fallback: 'Calendar' }) },
       { id: 'announcements', label: t('admin.dashboard.tabs.announcements', { fallback: 'Announcements' }) },
+      { id: 'bulletins', label: t('admin.dashboard.tabs.bulletins', { fallback: 'Bulletins' }) },
       { id: 'subscribers', label: t('admin.dashboard.tabs.subscribers', { fallback: 'Subscribers' }) },
       { id: 'profile', label: t('admin.dashboard.tabs.profile', { fallback: 'Profile' }) }
     ];
@@ -447,6 +449,8 @@ const AdminDashboard = () => {
         return renderCalendar();
       case 'announcements':
         return <AnnouncementManager />;
+      case 'bulletins':
+        return <BulletinManager />;
       case 'subscribers':
         return <SubscriberManager />;
       case 'profile':

@@ -25,6 +25,7 @@ const NAV_ITEMS = [
   { path: '/mass', key: 'mass' },
   { path: '/events', key: 'events' },
   { path: '/readings', key: 'readings' },
+  { path: '/bulletin', key: 'bulletin' },
   { path: '/sacraments', key: 'sacraments' },
   { path: '/about-us', key: 'aboutUs' },
   { path: '/donate', key: 'donate' },
