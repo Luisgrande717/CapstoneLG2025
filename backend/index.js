@@ -32,6 +32,7 @@ import subscriptionsRoute from './routes/subscriptions.js';
 import googleCalendarRoute from './routes/googleCalendar.js';
 import announcementsRoute from './routes/announcements.js';
 import bulletinsRoute from './routes/bulletins.js';
+import setupRoute from './routes/setup.js'; // TEMPORARY - DELETE AFTER SETUP
 
 // Database connection
 import connectDB from './config/db.js';
@@ -243,6 +244,7 @@ const mountRoutes = (app) => {
   app.use('/api/google-calendar', googleCalendarRoute);
   app.use('/api/announcements', announcementsRoute);
   app.use('/api/bulletins', bulletinsRoute);
+  app.use('/api/setup', setupRoute); // TEMPORARY - DELETE AFTER SETUP
 
   // Root endpoint
   app.get('/', (req, res) => {
