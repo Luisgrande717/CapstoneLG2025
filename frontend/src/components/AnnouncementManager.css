@@ -27,6 +27,8 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group label {
@@ -43,6 +45,8 @@
   border-radius: 4px;
   font-size: 14px;
   font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group input[type="file"] {
@@ -50,6 +54,8 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   background: white;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
@@ -98,8 +104,58 @@
 .btn-delete { background: #f44336; color: white; }
 .btn-activate:hover, .btn-deactivate:hover, .btn-delete:hover { opacity: 0.9; }
 
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
+  .announcement-manager {
+    padding: 10px;
+  }
+
+  .announcement-form {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
   .form-row {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-group input[type="file"] {
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+  }
+
+  .announcement-item {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .announcement-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .btn-activate,
+  .btn-deactivate,
+  .btn-delete {
+    flex: 1;
+    min-width: 80px;
   }
 }
