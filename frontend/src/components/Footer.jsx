@@ -11,6 +11,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Footer.css';
 import { useLanguage } from '../context/LanguageContext';
+import API_URL from '../config/api';
 import facebookIcon from '../assets/facebook-icon.png';
 import instagramIcon from '../assets/insta.png';
 import youtubeIcon from '../assets/youtube-icon.png';
@@ -25,7 +26,7 @@ const Footer = () => {
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
-    
+
     if (!email.trim()) {
       setMessage(t('emailRequired', { fallback: 'Email is required' }));
       setIsError(true);
@@ -37,7 +38,7 @@ const Footer = () => {
     setIsError(false);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/subscriptions/subscribe', {
+      const response = await axios.post(`${API_URL}/api/subscriptions/subscribe`, {
         email,
         preferredLanguage: language,
         source: 'footer'

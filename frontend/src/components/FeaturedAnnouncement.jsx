@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
+import API_URL from '../config/api';
 import './FeaturedAnnouncement.css';
 
 const FeaturedAnnouncement = () => {
@@ -19,7 +20,7 @@ const FeaturedAnnouncement = () => {
 
   const fetchActiveAnnouncement = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/announcements/active');
+      const response = await axios.get(`${API_URL}/api/announcements/active`);
       setAnnouncement(response.data.data);
     } catch (error) {
       console.error('Error fetching announcement:', error);
@@ -30,7 +31,7 @@ const FeaturedAnnouncement = () => {
 
   if (isLoading || !announcement) return null;
 
-  const getFileUrl = (url) => 'http://localhost:8080' + url;
+  const getFileUrl = (url) => API_URL + url;
 
   return (
     <section className="featured-announcement">

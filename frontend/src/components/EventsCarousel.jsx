@@ -13,6 +13,7 @@ import './EventsCarousel.css';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import axios from 'axios';
+import API_URL from '../config/api';
 
 const EventsCarousel = () => {
   const { t, language } = useLanguage();
@@ -39,7 +40,7 @@ const EventsCarousel = () => {
       endOfWeek.setHours(23, 59, 59, 999);
 
       // Fetch all events from the API
-      const response = await axios.get('http://localhost:8080/api/events');
+      const response = await axios.get(`${API_URL}/api/events`);
       const allEvents = response.data.data.events || [];
 
       // Filter events that fall within the current week

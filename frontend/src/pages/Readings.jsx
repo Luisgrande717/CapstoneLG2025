@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import API_URL from '../config/api';
 import './Readings.css';
 
 const Readings = () => {
@@ -15,7 +16,7 @@ const Readings = () => {
       setLoading(true);
       setError(false);
 
-      fetch('http://localhost:8080/api/readings/today')
+      fetch(`${API_URL}/api/readings/today`)
         .then(res => res.json())
         .then(data => {
           console.log('[Frontend] Fetched reading:', data);

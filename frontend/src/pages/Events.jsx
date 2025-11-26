@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 import GoogleCalendarEmbed from '../components/GoogleCalendarEmbed';
+import API_URL from '../config/api';
 import './Events.css';
 
 const Events = () => {
@@ -28,7 +29,7 @@ const Events = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await axios.get('http://localhost:8080/api/events');
+        const response = await axios.get(`${API_URL}/api/events`);
         const events = response.data.data.events || [];
 
         // Filter for upcoming events only
