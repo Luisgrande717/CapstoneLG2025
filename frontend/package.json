@@ -24,6 +24,7 @@
     "react-pdf": "^10.2.0",
     "react-router-dom": "^7.7.0",
     "react-slick": "^0.30.3",
+    "serve": "^14.2.4",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
