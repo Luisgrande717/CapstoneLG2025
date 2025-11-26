@@ -21,7 +21,11 @@
       "Bash(node scripts/resetAdminPassword.js)",
       "Bash(start http://localhost:5173/admin)",
       "Bash(start http://localhost:5173/)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git log:*)",
+      "Bash(start http://localhost:5173/bulletin)",
+      "Bash(timeout 5 curl:*)",
+      "Bash(start http://localhost:5173/admin/login)"
     ],
     "deny": [],
     "ask": []

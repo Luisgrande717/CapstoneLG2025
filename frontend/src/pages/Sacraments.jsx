@@ -41,17 +41,17 @@ const Sacraments = () => {
           {
             title: language === 'es' ? 'Requisitos' : 'Requirements',
             list: language === 'es' ? [
-              'Certificado de nacimiento del niño',
-              'Padres y padrinos deben ser católicos practicantes',
-              'Los padrinos deben haber recibido los sacramentos de Bautismo, Confirmación y Eucaristía',
-              'Asistir a la clase de preparación pre-bautismal',
-              'Completar el formulario de registro'
+              '•	Los padres y padrinos deben ser miembros registrados de una parroquia católica por al menos tres meses.',
+              '•	Al menos uno de los padres debe completar una solicitud en la oficina parroquial. Deben traer una copia del certificado de nacimiento del niño. Ninguna persona que imparta la clase podrá registrar oficialmente a los padres o padrinos.',
+              '•	Todas las tarifas monetarias de bautismo serán manejadas solo en la oficina por nuestras secretarias, tales como: $25/ primer hijo, $40/ dos niños, $60/ tres niños o más de la misma familia.',
+              '•	Los padrinos deben ser adultos (18 años o más). Deben haber recibido el sacramento de la Confirmación y dar buen ejemplo de vida cristiana. Deben ser católicos. Si los padrinos ya viven como pareja, deben estar casados en la Iglesia Católica (aunque no necesariamente entre ellos). También podrían ser solteros, uno o ambos.',
+              'NOTA: La Oficina Parroquial no aceptará registros incompletos. Para procesar su solicitud, debe completar los cuatro puntos anteriores.',
             ] : [
-              'Child\'s birth certificate',
-              'Parents and godparents must be practicing Catholics',
-              'Godparents must have received the sacraments of Baptism, Confirmation, and Eucharist',
-              'Attend pre-baptismal preparation class',
-              'Complete registration form'
+              '•	Parents and godparents must be registered members of a catholic parish for at least three months.',
+              '•	At least one of the parents must fill an application in the parish office. They have to bring a copy of the childs birth certificate. No one giving the class will officially be able to register the parents or godparents.',
+              '•	All monetary baptismal fees will be handled only in the office by our secretaries, such as: $25/ first child, $40/ for two children, $60/ for three children or more of the same family. ',
+              '•	Godparents must be adults (18 years and over). They must have received the sacrament of Confirmation and give a good example of Christian living. They must be Catholic. If the godparents are already living as a couple, they must be married in the Catholic Church (though not necessarily with each other). They could also be single, one or both of them',
+              'NOTE: Parish Office will not accept incomplete registrations. To process your application, you must complete the above four points. ',
             ]
           },
           {
