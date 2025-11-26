@@ -13,6 +13,7 @@ import axios from 'axios';
 import Calendar from 'react-calendar';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
+import API_URL from '../config/api';
 import EventManager from '../components/EventManager';
 import AnnouncementManager from '../components/AnnouncementManager';
 import SubscriberManager from '../components/SubscriberManager';
@@ -59,9 +60,9 @@ const AdminDashboard = () => {
 
       // Fetch all statistics in parallel
       const [eventsResponse, subscriptionsResponse, allEventsResponse] = await Promise.all([
-        authAxios.get('http://localhost:8080/api/events/stats'),
-        axios.get('http://localhost:8080/api/subscriptions/stats'), // Public endpoint
-        authAxios.get('http://localhost:8080/api/events?limit=100') // Get all events for calendar
+        authAxios.get(`${API_URL}/api/events/stats`),
+        axios.get(`${API_URL}/api/subscriptions/stats`), // Public endpoint
+        authAxios.get(`${API_URL}/api/events?limit=100`) // Get all events for calendar
       ]);
 
       if (eventsResponse.data.success) {
@@ -230,7 +231,7 @@ const AdminDashboard = () => {
             className="refresh-button"
             onClick={async () => {
               try {
-                const res = await axios.post('http://localhost:8080/api/google-calendar/sync', {},
+                const res = await axios.post(`${API_URL}/api/google-calendar/sync`, {},
                   { headers: { 'Authorization': 'Bearer ' + token } });
                 if (res.data.success) {
                   alert('Synced ' + res.data.data.imported + ' events!');

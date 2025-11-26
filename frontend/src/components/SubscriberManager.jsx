@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../config/api';
 import './SubscriberManager.css';
 
 const SubscriberManager = () => {
@@ -35,7 +36,7 @@ const SubscriberManager = () => {
       if (filter.language) params.append('language', filter.language);
       if (filter.source) params.append('source', filter.source);
 
-      const res = await axios.get(`http://localhost:8080/api/subscriptions/list?${params}`, {
+      const res = await axios.get(`${API_URL}/api/subscriptions/list?${params}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -100,7 +101,7 @@ const SubscriberManager = () => {
       }
 
       const res = await axios.post(
-        'http://localhost:8080/api/subscriptions/send-mass-email',
+        `${API_URL}/api/subscriptions/send-mass-email`,
         formData,
         {
           headers: {

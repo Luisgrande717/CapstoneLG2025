@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../config/api';
 import './AnnouncementManager.css';
 
 const AnnouncementManager = () => {
@@ -14,7 +15,7 @@ const AnnouncementManager = () => {
 
   const fetchAnnouncements = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/announcements',
+      const res = await axios.get(`${API_URL}/api/announcements`,
         { headers: { Authorization: `Bearer ${token}` } });
       if (res.data.success) setAnnouncements(res.data.data);
     } catch (err) { console.error(err); }
@@ -24,7 +25,7 @@ const AnnouncementManager = () => {
     try {
       console.log('Toggling announcement:', id);
       console.log('Token:', token);
-      const res = await axios.patch(`http://localhost:8080/api/announcements/${id}/toggle`, {},
+      const res = await axios.patch(`${API_URL}/api/announcements/${id}/toggle`, {},
         { headers: { Authorization: `Bearer ${token}` } });
       console.log('Toggle response:', res.data);
       fetchAnnouncements();
@@ -40,7 +41,7 @@ const AnnouncementManager = () => {
     try {
       console.log('Deleting announcement:', id);
       console.log('Token:', token);
-      const res = await axios.delete(`http://localhost:8080/api/announcements/${id}`,
+      const res = await axios.delete(`${API_URL}/api/announcements/${id}`,
         { headers: { Authorization: `Bearer ${token}` } });
       console.log('Delete response:', res.data);
       fetchAnnouncements();
@@ -80,7 +81,7 @@ const AnnouncementManager = () => {
     data.append('priority', formData.priority);
 
     try {
-      await axios.post('http://localhost:8080/api/announcements', data, {
+      await axios.post(`${API_URL}/api/announcements`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

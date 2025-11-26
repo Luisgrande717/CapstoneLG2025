@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import API_URL from '../config/api';
 import './EventManager.css';
 
 const EventManager = () => {
@@ -61,7 +62,7 @@ const EventManager = () => {
   const fetchEvents = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get('http://localhost:8080/api/events', {
+      const response = await axios.get(`${API_URL}/api/events`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       setEvents(response.data.data.events || []);
@@ -74,7 +75,7 @@ const EventManager = () => {
 
   const connectGoogleCalendar = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/google-calendar/auth-url', {
+      const response = await axios.get(`${API_URL}/api/google-calendar/auth-url`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       window.location.href = response.data.data.url;
@@ -87,7 +88,7 @@ const EventManager = () => {
   const importFromGoogle = async () => {
     try {
       setIsImporting(true);
-      const response = await axios.post('http://localhost:8080/api/google-calendar/import', {}, {
+      const response = await axios.post(`${API_URL}/api/google-calendar/import`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEvents(prev => [...response.data.data.events, ...prev]);
@@ -106,7 +107,7 @@ const EventManager = () => {
 
   const exportToGoogle = async (eventId) => {
     try {
-      const response = await axios.post(`http://localhost:8080/api/google-calendar/export/${eventId}`, {}, {
+      const response = await axios.post(`${API_URL}/api/google-calendar/export/${eventId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert(t('admin.events.googleExportSuccess', { 
@@ -205,7 +206,7 @@ const EventManager = () => {
 
       if (editingEvent) {
         // Update existing event
-        const response = await axios.put(`http://localhost:8080/api/events/${editingEvent._id}`, submitData, {
+        const response = await axios.put(`${API_URL}/api/events/${editingEvent._id}`, submitData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setEvents(prev => prev.map(event => 
@@ -213,7 +214,7 @@ const EventManager = () => {
         ));
       } else {
         // Create new event
-        const response = await axios.post('http://localhost:8080/api/events', submitData, {
+        const response = await axios.post(`${API_URL}/api/events`, submitData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setEvents(prev => [response.data.data.event, ...prev]);
@@ -262,7 +263,7 @@ const EventManager = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/api/events/${eventId}`, {
+      await axios.delete(`${API_URL}/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEvents(prev => prev.filter(event => event._id !== eventId));
@@ -278,7 +279,7 @@ const EventManager = () => {
    */
   const togglePublished = async (event) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/events/${event._id}/publish`, {
+      const response = await axios.put(`${API_URL}/api/events/${event._id}/publish`, {
         published: !event.published
       }, {
         headers: { Authorization: `Bearer ${token}` }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import API_URL from '../config/api';
 import './AdminEventForm.css';
 
 const AdminEventForm = () => {
@@ -25,7 +26,7 @@ const AdminEventForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8080/api/events', {
+      const res = await fetch(`${API_URL}/api/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
