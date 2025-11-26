@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import './Readings.css';
 
@@ -7,34 +7,42 @@ const Readings = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const { t } = useLanguage();
+  const hasFetched = useRef(false);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/readings/today')
-      .then(res => res.json())
-      .then(data => {
-        console.log('[Frontend] Fetched reading:', data);
-        console.log('[Excerpt length]', data?.excerpt?.length);
+    // Only fetch if we haven't fetched yet, or if reading is null
+    if (!hasFetched.current || !reading) {
+      setLoading(true);
+      setError(false);
 
-        // ✅ Safer validation logic
-        if (
-          !data ||
-          typeof data.excerpt !== 'string' ||
-          data.excerpt.trim().length < 50 ||
-          data.excerpt.toLowerCase().includes('reading not available')
-        ) {
+      fetch('http://localhost:8080/api/readings/today')
+        .then(res => res.json())
+        .then(data => {
+          console.log('[Frontend] Fetched reading:', data);
+          console.log('[Excerpt length]', data?.excerpt?.length);
+
+          // ✅ Safer validation logic
+          if (
+            !data ||
+            typeof data.excerpt !== 'string' ||
+            data.excerpt.trim().length < 50 ||
+            data.excerpt.toLowerCase().includes('reading not available')
+          ) {
+            setError(true);
+          } else {
+            setReading(data);
+            hasFetched.current = true;
+          }
+        })
+        .catch(err => {
+          console.error('[Frontend] Failed to fetch reading:', err.message);
           setError(true);
-        } else {
-          setReading(data);
-        }
-      })
-      .catch(err => {
-        console.error('[Frontend] Failed to fetch reading:', err.message);
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [reading]); // Only re-run if reading becomes null
 
   return (
     <section className="readings-page">

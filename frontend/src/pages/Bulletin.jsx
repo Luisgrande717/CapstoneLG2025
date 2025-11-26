@@ -7,7 +7,7 @@
  * @module pages/Bulletin
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -26,6 +26,7 @@ const Bulletin = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageWidth, setPageWidth] = useState(600);
   const language = localStorage.getItem('language') || 'en';
+  const hasFetched = useRef(false);
 
   // Calculate page width based on screen size
   useEffect(() => {
@@ -50,26 +51,33 @@ const Bulletin = () => {
   // Fetch current bulletin
   useEffect(() => {
     const fetchBulletin = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${API_URL}/api/bulletins/current`);
+      // Only fetch if we haven't fetched yet, or if bulletin is null
+      if (!hasFetched.current || !bulletin) {
+        try {
+          setLoading(true);
+          setError(null);
 
-        if (!response.ok) {
-          throw new Error('No bulletin available');
+          const response = await fetch(`${API_URL}/api/bulletins/current`);
+
+          if (!response.ok) {
+            throw new Error('No bulletin available');
+          }
+
+          const data = await response.json();
+          setBulletin(data.bulletin);
+          setError(null);
+          hasFetched.current = true;
+        } catch (err) {
+          setError(err.message);
+          setBulletin(null);
+        } finally {
+          setLoading(false);
         }
-
-        const data = await response.json();
-        setBulletin(data.bulletin);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchBulletin();
-  }, []);
+  }, [bulletin]); // Only re-run if bulletin becomes null
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
